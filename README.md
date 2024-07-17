@@ -52,7 +52,7 @@
 
 # Dependências
 
-## O projeto utiliza a fonte Inter baixada no <a href='https://rsms.me/inter/' target="_blank">site oficial</a>.
+## O projeto utiliza a fonte Inter baixada no <a href='https://rsms.me/inter/'>site oficial</a>.
 
 ## Link do Website na plataforma GitHub: https://phendges7.github.io/web_project_homeland/
 
