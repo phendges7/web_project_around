@@ -1,21 +1,35 @@
 .photo-grid {
-  margin: 118px 48px 0;
+  margin-top: 50px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 16px;
+  column-gap: 17px;
+  row-gap: 20px;
 }
 
 .photo-grid__item {
   margin: 0;
-  width: 100%;
-  height: auto;
+  width: 282px;
+  height: 361px;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .photo-grid__item img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+}
+
+.photo-grid__item_name {
+  text-align: center;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
 }
 
 /*------- Consulta midia MEDIA -------*/

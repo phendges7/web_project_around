@@ -58,6 +58,16 @@
 
 ## New York Photo by <a href="https://unsplash.com/@raddfilms?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Redd F</a> on <a href="https://unsplash.com/photos/cars-parked-near-brown-building-wOj5odhDOZ0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 
+## Miami Photo by <a href="https://unsplash.com/@lance_asper?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Lance Asper</a> on <a href="https://unsplash.com/photos/high-angle-photography-of-two-red-and-white-vehicles-on-concrete-road-between-trees-and-buildings-at-daytime-pAWY7xrsLwc?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+## Chicago Photo by <a href="https://unsplash.com/@aveedibya?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Aveedibya Dey</a> on <a href="https://unsplash.com/photos/white-and-brown-concrete-buildings-near-body-of-water-during-daytime-wRyQocoKOBA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+## Los Angeles Photo by <a href="https://unsplash.com/@jakeblucker?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Jake Blucker</a> on <a href="https://unsplash.com/photos/people-sitting-on-chairs-near-palm-trees-during-night-time-8LlJNFLTEm0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+## Boston Photo by <a href="https://unsplash.com/@ozziestern?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Ozzie Stern</a> on <a href="https://unsplash.com/photos/body-of-water-near-buildings-at-daytime-PKOcoqB1SQw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+## Washington Photo by <a href="https://unsplash.com/@nuclearvee?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Vlad Gorshkov</a> on <a href="https://unsplash.com/photos/white-and-brown-concrete-buildings-during-daytime-u6-jWHgwd44?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
 # Autor
 
 ## Pedro Henrique
