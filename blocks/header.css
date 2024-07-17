@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.header__logo {
+  width: 254px;
+  height: 70px;
+  margin-top: 34px;
+}
+
+/*------- Consulta midia MEDIA -------*/
+
+@media screen and (max-width: 1024px) {
+  .header__logo {
+    width: 254px;
+    height: 66px;
+    margin-top: 30px;
+  }
+}
+
+/*------- Consulta midia PEQUENA -------*/
+
+@media screen and (max-width: 544px) {
+  .header__logo {
+    width: 188px;
+    height: 52px;
+    margin-top: 20px;
+  }
+}
