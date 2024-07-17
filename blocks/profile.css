@@ -1,2 +1,50 @@
+.profile {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-start;
+}
+
 .profile__picture {
+  border-radius: 100%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.profile__info {
+  margin: 22px 30px 21px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas:
+    "name button"
+    "description .";
+}
+
+.profile__name {
+  margin: 0;
+  grid-area: name;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 1.14;
+  text-wrap: nowrap;
+}
+
+.profile__description {
+  grid-area: description;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.profile__edit-profile-button {
+  grid-area: button;
+  margin: 15px 0 0 18px;
+}
+
+.profile__add-button {
+  margin-left: auto;
 }
