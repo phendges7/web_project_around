@@ -1,0 +1,27 @@
+.footer__copyright {
+  margin: 92px auto 24px;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+}
+
+/*------- Consulta midia MEDIA -------*/
+
+@media screen and (max-width: 1024px) {
+  .footer__copyright {
+    margin: 88px auto 24px;
+    font-size: 14px;
+    line-height: 1.14;
+  }
+}
+
+/*------- Consulta midia PEQUENA -------*/
+
+@media screen and (max-width: 544px) {
+  .footer__copyright {
+    margin: 64px auto 24px;
+    font-size: 14px;
+    line-height: 1;
+  }
+}

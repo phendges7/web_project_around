@@ -9,6 +9,14 @@
   width: 173px;
   height: 33px;
   margin: 45px 0 41px;
+=======
+  justify-content: center;
+}
+
+.header__logo {
+  width: 254px;
+  height: 70px;
+  margin-top: 34px;
 }
 
 /*------- Consulta midia MEDIA -------*/
