@@ -76,27 +76,29 @@
           </div>
         </section>
 
-        <form class="popup">
-          <img
-            src="./images/closeIcon.svg"
-            alt="Fechar"
-            class="popup__close-button"
-          />
-          <div class="popup__wrapper">
-            <h3 class="popup__title">EDITAR PERFIL</h3>
-            <input
-              type="text"
-              class="popup__input popup__name"
-              placeholder="Nome"
+        <div class="popup">
+          <div class="popup_position">
+            <img
+              src="./images/closeIcon.svg"
+              alt="Fechar"
+              class="popup__close-button"
             />
-            <input
-              type="text"
-              class="popup__input popup__description"
-              placeholder="Sobre mim"
-            />
-            <button type="submit" class="popup__submit-button">SALVAR</button>
+            <form class="popup__wrapper">
+              <h3 class="popup__title">EDITAR PERFIL</h3>
+              <input
+                type="text"
+                class="popup__input popup__name"
+                placeholder="Nome"
+              />
+              <input
+                type="text"
+                class="popup__input popup__description"
+                placeholder="Sobre mim"
+              />
+              <button type="submit" class="popup__submit-button">SALVAR</button>
+            </form>
           </div>
-        </form>
+        </div>
       </main>
       <footer class="footer" id="footer">
         <p class="footer__copyright">&copy; 2024 Around The U.S.</p>

@@ -31,6 +31,10 @@
   opacity: 0; /* Inicialmente invisível */
 }
 
+.popup_position {
+  position: relative;
+}
+
 /* Transição suave para a abertura e fechamento do popup */
 .popup_opened {
   display: flex;
@@ -104,7 +108,9 @@
   cursor: pointer;
   width: 40px;
   height: 40px;
-  align-self: flex-end;
+  position: absolute;
+  top: -45px;
+  right: -110px;
 }
 
 .popup__close-button:hover {
