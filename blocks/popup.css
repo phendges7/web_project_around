@@ -94,6 +94,11 @@
   cursor: default;
 }
 
+.popup__submit-button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
 /* Estilos do botão de fechar */
 .popup__close-button {
   cursor: pointer;
@@ -103,6 +108,6 @@
 }
 
 .popup__close-button:hover {
-  opacity: 0.5;
+  opacity: 0.7;
   cursor: pointer;
 }
