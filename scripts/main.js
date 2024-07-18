@@ -1,23 +1,20 @@
-/*Popup Variaveis*/
-let page = document.querySelector(".page");
-let overlay = document.querySelector(".overlay");
-let editProfileButton = page.querySelector(".profile__edit-profile-button");
-let popup = page.querySelector(".popup");
-let closeButton = popup.querySelector(".popup__close-button");
+import { openPopup } from "./popup.js";
+import { editUser } from "./editUser.js";
+import { renderSubmit } from "./renderSubmit.js";
 
-/* Abrir/Fechar */
-function openPopup() {
-  overlay.classList.add("visible");
-  popup.classList.add("visible");
-  console.log("CLICOU");
-}
+// Variaveis popup
+const page = document.querySelector(".page");
+const editProfileButton = page.querySelector(".profile__edit-profile-button");
+const popup = document.querySelector(".popup");
+const submitButton = popup.querySelector(".popup__submit-button");
 
-function closePopup() {
-  popup.classList.remove("visible");
-  overlay.classList.remove("visible");
-  console.log("FECHOU");
-}
-
-/* Ativando funcoes */
+// Abrir/Fechar Popup
 editProfileButton.addEventListener("click", openPopup);
-closeButton.addEventListener("click", closePopup);
+submitButton.addEventListener("click", editUser);
+
+// Validar campos popup
+const popupName = popup.querySelector(".popup__name");
+const popupDescription = popup.querySelector(".popup__description");
+
+popupName.addEventListener("input", renderSubmit);
+popupDescription.addEventListener("input", renderSubmit);

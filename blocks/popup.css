@@ -52,9 +52,10 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
+  color: #c4c4c4;
 }
 
-.popup__user-description {
+.popup__description {
   margin: 30px 0 48px;
 }
 
@@ -68,6 +69,13 @@
   text-align: center;
   background-color: #000;
   color: #fff;
+  cursor: pointer;
+}
+
+.popup__submit-button.disabled {
+  background-color: #fff;
+  color: #c4c4c4;
+  cursor: default;
 }
 
 /* Estilos do botão de fechar */
