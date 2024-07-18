@@ -47,50 +47,58 @@
           <div class="photo-grid__item" id="NewYork">
             <img src="./images/NewYork_Dumbo.jpg" alt="New York" />
             <p class="photo-grid__item_name">New York, NY</p>
+            <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item" id="Miami">
             <img src="./images/Miami.jpg" alt="Miami" />
             <p class="photo-grid__item_name">Miami, FL</p>
+            <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item" id="LosAngeles">
             <img src="./images/LosAngeles.jpg" alt="Los Angeles" />
             <p class="photo-grid__item_name">Los Angeles, CA</p>
+            <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item">
             <img src="./images/Chicago.jpg" alt="Chicago" />
             <p class="photo-grid__item_name">Chicago, IL</p>
+            <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item">
             <img src="./images/Boston.jpg" alt="Boston" />
             <p class="photo-grid__item_name">Boston, MA</p>
+            <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item">
             <img src="./images/Washington.jpg" alt="Washington" />
             <p class="photo-grid__item_name">Washington, DC</p>
+            <button class="photo-grid__like-button"></button>
           </div>
         </section>
 
-        <form class="popup">
-          <img
-            src="./images/closeIcon.svg"
-            alt="Fechar"
-            class="popup__close-button"
-          />
-          <div class="popup__wrapper">
-            <h3 class="popup__title">EDITAR PERFIL</h3>
-            <input
-              type="text"
-              class="popup__input popup__user-name"
-              placeholder="Nome"
+        <div class="popup">
+          <div class="popup_position">
+            <img
+              src="./images/closeIcon.svg"
+              alt="Fechar"
+              class="popup__close-button"
             />
-            <input
-              type="text"
-              class="popup__input popup__user-description"
-              placeholder="Sobre mim"
-            />
-            <button type="submit" class="popup__submit-button">SALVAR</button>
+            <form class="popup__wrapper">
+              <h3 class="popup__title">EDITAR PERFIL</h3>
+              <input
+                type="text"
+                class="popup__input popup__name"
+                placeholder="Nome"
+              />
+              <input
+                type="text"
+                class="popup__input popup__description"
+                placeholder="Sobre mim"
+              />
+              <button type="submit" class="popup__submit-button">SALVAR</button>
+            </form>
           </div>
-        </form>
+        </div>
       </main>
       <footer class="footer" id="footer">
         <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
