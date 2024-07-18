@@ -28,7 +28,7 @@
   object-fit: cover;
 }
 
-.photo-grid__item_name {
+.photo-grid__item-name {
   grid-area: name;
   margin-left: 21px;
   text-wrap: nowrap;
