@@ -1,4 +1,20 @@
 /* Estilos básicos do popup */
+.overlay {
+  display: none; /* Inicialmente oculto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 99;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.overlay.visible {
+  display: block; /* Mostra o overlay quando o popup está ativo */
+}
+
 .popup {
   display: none;
   position: fixed; /* Para que o popup fique fixo na tela */
@@ -16,7 +32,7 @@
 }
 
 /* Transição suave para a abertura e fechamento do popup */
-.popup.visible {
+.popup_opened {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -84,4 +100,9 @@
   width: 40px;
   height: 40px;
   align-self: flex-end;
+}
+
+.popup__close-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
 }

@@ -10,7 +10,7 @@ function openPopup() {
   const popupDescription = popup.querySelector(".popup__description");
 
   overlay.classList.add("visible");
-  popup.classList.add("visible");
+  popup.classList.add("popup_opened");
   renderSubmit();
 
   popupName.addEventListener("input", renderSubmit);
@@ -18,8 +18,8 @@ function openPopup() {
 }
 
 function closePopup() {
-  popup.classList.remove("visible");
   overlay.classList.remove("visible");
+  popup.classList.remove("popup_opened");
 }
 
 closeButton.addEventListener("click", closePopup);

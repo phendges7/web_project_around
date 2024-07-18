@@ -18,3 +18,11 @@ const popupDescription = popup.querySelector(".popup__description");
 
 popupName.addEventListener("input", renderSubmit);
 popupDescription.addEventListener("input", renderSubmit);
+
+//Acionar LIKE
+const likeButtons = document.querySelectorAll(".photo-grid__like-button");
+likeButtons.forEach((button) => {
+  button.addEventListener("click", function () {
+    button.classList.toggle("active");
+  });
+});

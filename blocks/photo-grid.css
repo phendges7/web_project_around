@@ -9,6 +9,10 @@
 
 .photo-grid__item {
   margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas: "photo photo" "name like";
   width: 282px;
   height: 361px;
   background: #ffffff;
@@ -17,19 +21,47 @@
 }
 
 .photo-grid__item img {
+  grid-area: photo;
   width: 282px;
   height: 282px;
+  display: block;
   object-fit: cover;
 }
 
 .photo-grid__item_name {
-  text-align: center;
+  grid-area: name;
+  margin-left: 21px;
+  text-wrap: nowrap;
   font-family: "Inter";
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
   color: #000000;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.photo-grid__like-button {
+  grid-area: like;
+  margin-right: 18px;
+  border: none;
+  background: url(../images/likeButton.svg);
+  cursor: pointer;
+  height: 19px;
+  width: 21px;
+  align-self: center;
+  justify-self: flex-end;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.photo-grid__like-button:hover {
+  opacity: 0.5;
+}
+
+.photo-grid__like-button.active {
+  background: url(../images/likeButtonActive.svg);
 }
 
 /*------- Consulta midia MEDIA -------*/
