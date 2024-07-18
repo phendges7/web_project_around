@@ -1,18 +1,26 @@
 /* Estilos básicos do popup */
 .popup {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: none;
+  position: fixed; /* Para que o popup fique fixo na tela */
+  top: 50%; /* Centraliza verticalmente */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Ajusta a posição para centralizar exatamente */
   width: 430px;
   height: 330px;
   z-index: 100;
   transition: opacity 0.3s ease, visibility 0.3s ease;
+  opacity: 0; /* Inicialmente invisível */
 }
 
 /* Transição suave para a abertura e fechamento do popup */
-.popup_opened {
-  opacity: 1;
-  visibility: visible;
+.popup.visible {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 1; /* Torna visível */
 }
 
 .popup__wrapper {
