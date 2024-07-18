@@ -1,8 +1,10 @@
 // Variaveis popup
 const page = document.querySelector(".page");
+const overlay = document.querySelector(".overlay");
 const editProfileButton = page.querySelector(".profile__edit-profile-button");
 const popup = document.querySelector(".popup");
 const submitButton = popup.querySelector(".popup__submit-button");
+const closeButton = popup.querySelector(".popup__close-button");
 
 //Variaveis editUser
 const profileName = document.querySelector(".profile__name");
