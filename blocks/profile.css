@@ -2,6 +2,7 @@
   margin-top: 40px;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
 }
 
 .profile__picture {
@@ -11,14 +12,15 @@
   object-fit: cover;
 }
 
-.profile__info {
+.profile__info-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin: 22px 30px 21px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-template-areas:
-    "name button"
-    "description .";
+}
+
+.profile__info {
+  display: flex;
 }
 
 .profile__name {
@@ -52,9 +54,59 @@
 
 .profile__add-button {
   margin-left: auto;
+  background: url(../images/addButton.svg) center no-repeat;
+  border: 1px solid #fff;
+  width: 150px;
+  height: 50px;
+  border-radius: 2px;
 }
 
 .profile__add-button:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+@media screen and (max-width: 880px) {
+  .profile__name {
+    font-size: 30px;
+  }
+
+  .profile__description {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 19px;
+    max-width: 282px;
+  }
+
+  .profile__info-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+
+  .profile__info {
+    justify-content: center;
+    margin: 30px 0 0;
+  }
+
+  .profile__description {
+    margin-top: 14px;
+  }
+
+  .profile__edit-profile-button {
+    margin: 0 10px;
+  }
+
+  .profile__add-button {
+    width: 100%;
+    margin-top: 36px;
+    padding: 0;
+  }
 }

@@ -12,12 +12,12 @@
 }
 
 .overlay.visible {
-  display: block; /* Mostra o overlay quando o popup está ativo */
+  display: block; /* Mostra o overlay quando o popup ativa */
 }
 
 .popup {
   display: none;
-  position: fixed; /* Para que o popup fique fixo na tela */
+  position: fixed;
   top: 50%; /* Centraliza verticalmente */
   left: 50%; /* Centraliza horizontalmente */
   transform: translate(
@@ -27,7 +27,7 @@
   width: 430px;
   height: 330px;
   z-index: 100;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition: opacity 1s ease, visibility 1s ease;
   opacity: 0; /* Inicialmente invisível */
 }
 

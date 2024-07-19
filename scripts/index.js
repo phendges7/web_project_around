@@ -32,6 +32,7 @@ function openPopup() {
   popup.classList.add("popup_opened");
   renderSubmit();
 
+  // Validar campos popup
   popupName.addEventListener("input", renderSubmit);
   popupDescription.addEventListener("input", renderSubmit);
 }
@@ -41,10 +42,6 @@ function closePopup() {
   overlay.classList.remove("visible");
   popup.classList.remove("popup_opened");
 }
-
-// Validar campos popup
-popupName.addEventListener("input", renderSubmit);
-popupDescription.addEventListener("input", renderSubmit);
 
 // Editar usuario
 function editUser(event) {
