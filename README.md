@@ -1,3 +1,7 @@
+# OBS:
+
+## A aplicacao esta com dificuldades de exibir algumas imagens quando executada pelo GitHub Pages, foi verificado juntamente ao instrutor e verificado que o codigo das imagens esta correto e a causa possivel pode ser uma instabilidade dos servidores GitHub ao montar a aplicacao. Por favor, se puder aconselhar o que pode ser feito para resolver essa questao.
+
 # Tripleten web_project_around
 
 ## Este projeto foi criado para demonstrar um WebApp inicial, com valores de margem e altura linha usando valores variaveis, aplicacao de fontes direto na estrutura local do produto, incorporacao de layout usando grid com insercao de imagens locais, uso de formularios interagindo com JavaScript, personalizacao condicional de elementos e a aplicação de metadados HTML para melhorar a otimização do motor de busca (SEO).
