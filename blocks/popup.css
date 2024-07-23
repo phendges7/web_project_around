@@ -64,6 +64,7 @@
   border: none;
   border-bottom: 1px solid #c4c4c4;
   color: #000;
+  height: 10%;
 }
 
 .popup__input::placeholder {

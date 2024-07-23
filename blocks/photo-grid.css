@@ -70,6 +70,10 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
   }
+
+  .photo-grid__like-button:hover {
+    opacity: unset;
+  }
 }
 
 /*------- Consulta midia PEQUENA -------*/
