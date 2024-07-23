@@ -1,23 +1,6 @@
 .content {
   display: flex;
   flex-direction: column;
-}
-
-.content__image {
-  max-width: 100%;
-  margin: 64px auto 0;
-}
-
-/*------- Consulta midia MEDIA -------*/
-@media screen and (max-width: 1024px) {
-  .content__image {
-    margin: 40px 0 0;
-  }
-}
-
-/*------- Consulta midia PEQUENA -------*/
-@media screen and (max-width: 544px) {
-  .content__image {
-    margin: 40px 0 0;
-  }
+  justify-content: center;
+  max-width: 880px;
 }

@@ -28,56 +28,54 @@
             alt="Foto de Perfil"
             class="profile__picture"
           />
-          <div class="profile__info">
-            <h1 class="profile__name">Pedro Henrique</h1>
+          <div class="profile__info-wrapper">
+            <div class="profile__info">
+              <h1 class="profile__name">Pedro Henrique</h1>
+              <img
+                src="./images/editButton.svg"
+                alt="Editar Perfil"
+                class="profile__edit-profile-button"
+              />
+            </div>
             <p class="profile__description">Explorador</p>
-            <img
-              src="./images/editButton.svg"
-              alt="Editar Perfil"
-              class="profile__edit-profile-button"
-            />
           </div>
-          <img
-            src="./images/addButton.svg"
-            alt="Adicionar Local"
-            class="profile__add-button"
-          />
+          <button class="profile__add-button"></button>
         </section>
         <section class="photo-grid">
           <div class="photo-grid__item" id="NewYork">
             <img src="./images/NewYork_Dumbo.jpg" alt="New York" />
-            <p class="photo-grid__item_name">New York, NY</p>
+            <p class="photo-grid__item-name">New York, NY</p>
             <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item" id="Miami">
             <img src="./images/Miami.jpg" alt="Miami" />
-            <p class="photo-grid__item_name">Miami, FL</p>
+            <p class="photo-grid__item-name">Miami, FL</p>
             <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item" id="LosAngeles">
             <img src="./images/LosAngeles.jpg" alt="Los Angeles" />
-            <p class="photo-grid__item_name">Los Angeles, CA</p>
+            <p class="photo-grid__item-name">Los Angeles, CA</p>
             <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item">
             <img src="./images/Chicago.jpg" alt="Chicago" />
-            <p class="photo-grid__item_name">Chicago, IL</p>
+            <p class="photo-grid__item-name">Chicago, IL</p>
             <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item">
             <img src="./images/Boston.jpg" alt="Boston" />
-            <p class="photo-grid__item_name">Boston, MA</p>
+            <p class="photo-grid__item-name">Boston, MA</p>
             <button class="photo-grid__like-button"></button>
           </div>
           <div class="photo-grid__item">
             <img src="./images/Washington.jpg" alt="Washington" />
-            <p class="photo-grid__item_name">Washington, DC</p>
+            <p class="photo-grid__item-name">Washington, DC</p>
             <button class="photo-grid__like-button"></button>
           </div>
         </section>
 
         <div class="popup">
-          <div class="popup_position">
+          <div class="popup__position">
             <img
               src="./images/closeIcon.svg"
               alt="Fechar"
@@ -104,6 +102,6 @@
         <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
       </footer>
     </div>
-    <script src="./scripts/main.js" type="module"></script>
+    <script src="./scripts/index.js" type="module"></script>
   </body>
 </html>

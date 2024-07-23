@@ -1,7 +1,7 @@
 .photo-grid {
-  margin-top: 50px;
+  margin: 50px auto 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, auto);
   grid-template-rows: repeat(2, 1fr);
   column-gap: 17px;
   row-gap: 20px;
@@ -28,7 +28,7 @@
   object-fit: cover;
 }
 
-.photo-grid__item_name {
+.photo-grid__item-name {
   grid-area: name;
   margin-left: 21px;
   text-wrap: nowrap;
@@ -47,13 +47,12 @@
   grid-area: like;
   margin-right: 18px;
   border: none;
-  background: url(../images/likeButton.svg);
+  background: url(../images/likeButton.svg) center no-repeat;
   cursor: pointer;
   height: 19px;
   width: 21px;
   align-self: center;
   justify-self: flex-end;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .photo-grid__like-button:hover {
@@ -61,26 +60,24 @@
 }
 
 .photo-grid__like-button.active {
-  background: url(../images/likeButtonActive.svg);
+  background: url(../images/likeButtonActive.svg) center no-repeat;
 }
 
 /*------- Consulta midia MEDIA -------*/
 
 @media screen and (max-width: 1024px) {
   .photo-grid {
-    margin: 64px 24px 0;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
   }
 }
 
 /*------- Consulta midia PEQUENA -------*/
 
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 650px) {
   .photo-grid {
-    margin: 38px 16px;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(8, 1fr);
-    gap: 12px;
+    grid-template-rows: repeat(6, 1fr);
+    margin: 36px auto 0;
   }
 }
