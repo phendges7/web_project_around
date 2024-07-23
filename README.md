@@ -1,6 +1,6 @@
-# Tripleten web_project_homeland
+# Tripleten web_project_around
 
-## Este projeto foi criado para demonstrar o uso de responsividade, substituindo valores de margem e altura linha para valores variaveis, aplicacao de fontes direto na estrutura local do produto, incorporacao de layout usando grid com insercao de imagens locais, links externos, personalizacao condicional de elementos e a aplicação de metadados HTML para melhorar a otimização do motor de busca (SEO).
+## Este projeto foi criado para demonstrar um WebApp inicial, com valores de margem e altura linha usando valores variaveis, aplicacao de fontes direto na estrutura local do produto, incorporacao de layout usando grid com insercao de imagens locais, uso de formularios interagindo com JavaScript, personalizacao condicional de elementos e a aplicação de metadados HTML para melhorar a otimização do motor de busca (SEO).
 
 # Funcionalidades
 
@@ -12,6 +12,8 @@
 
 ## Grid Layout: Visando aprimorar a disposicao de conteudos pelo espaco disponivel, permitindo ordenar conteudo de forma mais facil e precisa.
 
+## JavaScript: Fornecendo interacao com o usuario atraves de inputs, submits e validations.
+
 # Tecnologias Utilizadas
 
 ## HTML5
@@ -21,6 +23,8 @@
 ## Fontes Locais
 
 ## Grid Layout
+
+## JavaScript
 
 # Descrição dos Arquivos
 
@@ -36,19 +40,15 @@
 
 ### \* header.css: Um arquivo CSS para estilos do bloco CABECALHO e dos elementos filhos.
 
-### \* lead.css: Um arquivo CSS para estilos do bloco LEAD e dos elementos filhos.
-
-### \* intro.css: Um arquivo CSS para estilos do bloco INTRO e dos elementos filhos.
+### \* profile.css: Um arquivo CSS para estilos do bloco PROFILE e dos elementos filhos.
 
 ### \* photo-grid.css: Um arquivo CSS para estilos do bloco PHOTO-GRID e dos elementos filhos.
 
-### \* places.css: Um arquivo CSS para estilos do bloco PLACES e dos elementos filhos.
+### \* popup.css: Um arquivo CSS para estilos do bloco POPUP e dos elementos filhos.
 
 ### \* footer.css: Um arquivo CSS para estilos do bloco RODAPE e dos elementos filhos.
 
-## \* favicon.ico: Ícone do site.
-
-## \* header-logo.svg / logo.svg / main-image.jpg: Imagens usadas no site.
+### \* index.js: Um arquivo JS contendo todas as funcoes aplicadas na WebApp na parte do POPUP.
 
 # Dependências
 
@@ -74,7 +74,7 @@
 
 # Meta
 
-## Este projeto foi desenvolvido para demonstrar a estrutura de um site simples, utilizando boas práticas de desenvolvimento web focando em responsividade e a metodologia BEM para nomenclatura de classes CSS.
+## Este projeto foi desenvolvido para demonstrar a estrutura de um site simples, utilizando boas práticas de desenvolvimento web focando em responsividade, metodologia BEM para nomenclatura de classes CSS e aplicacao de JavaScript.
 
 # Licença
 
