@@ -1,0 +1,155 @@
+/* Estilos básicos do overlay */
+.overlay {
+  display: none; /* Inicialmente oculto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 99;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+.overlay.visible {
+  display: block; /* Mostra o overlay quando o popup ativa */
+}
+
+/* Estilos básicos do popup */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%; /* Centraliza verticalmente */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Ajusta a posição para centralizar exatamente */
+  width: 430px;
+  height: 330px;
+  z-index: 100;
+  transition: opacity 1s ease, visibility 1s ease;
+  opacity: 0; /* Inicialmente invisível */
+}
+
+.popup__position {
+  position: relative;
+}
+
+.popup_opened {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 1; /* Torna visível */
+}
+
+.popup__wrapper {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  color: #000;
+  width: 430px;
+  height: 330px;
+  padding: 35px 35px;
+}
+
+.popup__title {
+  margin-bottom: 54px;
+  padding-left: 1px;
+}
+
+.popup__input {
+  border: none;
+  border-bottom: 1px solid #c4c4c4;
+  color: #000;
+}
+
+.popup__input::placeholder {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #c4c4c4;
+}
+
+.popup__description {
+  margin: 30px 0 48px;
+}
+
+/* Estilos do botao SALVAR */
+.popup__submit-button {
+  height: 50px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.popup__submit-button.disabled {
+  background-color: #fff;
+  color: #c4c4c4;
+  cursor: default;
+}
+
+.popup__submit-button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/* Estilos do botão de fechar */
+.popup__close-button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -45px;
+  right: -110px;
+}
+
+.popup__close-button:hover {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+/*------- Consulta midia PEQUENA -------*/
+@media screen and (max-width: 544px) {
+  .popup {
+    width: 282px;
+    height: 322px;
+    top: 53%;
+  }
+
+  .popup__wrapper {
+    width: auto;
+    height: auto;
+    padding: 25px 22px;
+  }
+
+  .popup__title {
+    margin-bottom: 76px;
+  }
+
+  .popup__close-button {
+    width: 26px;
+    height: 26px;
+    right: 0px;
+    top: -50px;
+  }
+
+  .popup__submit-button {
+    height: 46px;
+  }
+
+  .popup__submit-button {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
