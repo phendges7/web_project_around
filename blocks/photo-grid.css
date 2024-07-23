@@ -53,7 +53,6 @@
   width: 21px;
   align-self: center;
   justify-self: flex-end;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .photo-grid__like-button:hover {
@@ -61,7 +60,7 @@
 }
 
 .photo-grid__like-button.active {
-  background: url(../images/likeButtonActive.svg);
+  background: url(../images/likeButtonActive.svg) center no-repeat;
 }
 
 /*------- Consulta midia MEDIA -------*/
@@ -75,7 +74,7 @@
 
 /*------- Consulta midia PEQUENA -------*/
 
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 650px) {
   .photo-grid {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6, 1fr);

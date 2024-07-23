@@ -13,8 +13,20 @@
   margin: 45px 0 41px;
 }
 
-@media screen and (max-width: 520px) {
+/*------- Consulta midia TABLET -------*/
+@media screen and (max-width: 1024px) {
   .header__logo {
+    margin: 28px 0 32px;
+    padding: 0 6%;
+  }
+}
+
+/*------- Consulta midia MOBILE -------*/
+@media screen and (max-width: 650px) {
+  .header__logo {
+    margin: 28px 0 32px;
     padding: 0 27px;
+    width: 126px;
+    height: 27px;
   }
 }

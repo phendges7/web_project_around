@@ -1,4 +1,4 @@
-/* Estilos básicos do popup */
+/* Estilos básicos do overlay */
 .overlay {
   display: none; /* Inicialmente oculto */
   position: fixed;
@@ -15,6 +15,7 @@
   display: block; /* Mostra o overlay quando o popup ativa */
 }
 
+/* Estilos básicos do popup */
 .popup {
   display: none;
   position: fixed;
@@ -35,7 +36,6 @@
   position: relative;
 }
 
-/* Transição suave para a abertura e fechamento do popup */
 .popup_opened {
   display: flex;
   flex-direction: column;
@@ -79,6 +79,7 @@
   margin: 30px 0 48px;
 }
 
+/* Estilos do botao SALVAR */
 .popup__submit-button {
   height: 50px;
   font-family: "Inter";
@@ -116,4 +117,39 @@
 .popup__close-button:hover {
   opacity: 0.7;
   cursor: pointer;
+}
+
+/*------- Consulta midia PEQUENA -------*/
+@media screen and (max-width: 544px) {
+  .popup {
+    width: 282px;
+    height: 322px;
+    top: 53%;
+  }
+
+  .popup__wrapper {
+    width: auto;
+    height: auto;
+    padding: 25px 22px;
+  }
+
+  .popup__title {
+    margin-bottom: 76px;
+  }
+
+  .popup__close-button {
+    width: 26px;
+    height: 26px;
+    right: 0px;
+    top: -50px;
+  }
+
+  .popup__submit-button {
+    height: 46px;
+  }
+
+  .popup__submit-button {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
