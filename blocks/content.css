@@ -3,4 +3,17 @@
   flex-direction: column;
   justify-content: center;
   max-width: 880px;
+  width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    padding: 0 19px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .content {
+    width: unset;
+  }
 }
