@@ -54,7 +54,7 @@
 
 ## O projeto utiliza a fonte Inter baixada no <a href='https://rsms.me/inter/'>site oficial</a>.
 
-## Link do Website na plataforma GitHub: https://phendges7.github.io/web_project_homeland/
+## Link do Website na plataforma GitHub: https://phendges7.github.io/web_project_around/
 
 ## New York Photo by <a href="https://unsplash.com/@raddfilms?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Redd F</a> on <a href="https://unsplash.com/photos/cars-parked-near-brown-building-wOj5odhDOZ0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 
