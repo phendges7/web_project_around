@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 
-.profile__add-button {
+.profile__add-place-button {
   margin-left: auto;
   background: url(../images/addButton.svg) center no-repeat;
   border: 1px solid #fff;
@@ -61,7 +61,7 @@
   border-radius: 2px;
 }
 
-.profile__add-button:hover {
+.profile__add-place-button:hover {
   opacity: 0.5;
   cursor: pointer;
 }
