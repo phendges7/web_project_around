@@ -81,9 +81,9 @@ function closePopup() {
 
 /***********************************/
 // CARDS //
-// Variaveis Globais CARTOES
-const cardGrid = document.querySelector(".photo-grid");
+// Variaveis Globais
 const addPlaceButton = document.querySelector(".profile__add-place-button");
+const cardGrid = document.querySelector(".photo-grid");
 const initialCards = [
   {
     name: "New York, NY",
@@ -111,12 +111,12 @@ const initialCards = [
   },
 ];
 
-// Popular cartoes iniciais
+// Popular CARDS iniciais
 initialCards.forEach((element) => {
   createCard(element.name, element.link);
 });
 
-// FUNCTION - criar objeto cartao
+// FUNCTION - criar objeto CARD
 function createCard(nameValue, linkValue) {
   const cardContainer = document.createElement("div");
   cardContainer.classList.add("photo-grid__item");
@@ -124,6 +124,7 @@ function createCard(nameValue, linkValue) {
   const objectImageLink = document.createElement("img");
   objectImageLink.classList.add("photo-grid__item-img");
   objectImageLink.src = linkValue;
+  objectImageLink.alt = nameValue;
 
   const objectName = document.createElement("p");
   objectName.classList.add("photo-grid__item-name");
@@ -132,19 +133,37 @@ function createCard(nameValue, linkValue) {
   const likeButton = document.createElement("button");
   likeButton.classList.add("photo-grid__like-button");
 
+  const deleteButton = document.createElement("img");
+  deleteButton.classList.add("photo-grid__delete-button");
+  deleteButton.setAttribute("src", "../images/deleteButton.svg");
+  deleteButton.setAttribute("alt", "Delete");
+  deleteButton.setAttribute("id", "delete-button");
+
   likeButton.addEventListener("click", function () {
     likeButton.classList.toggle("active");
   });
-  cardContainer.prepend(objectImageLink, objectName, likeButton);
+  cardContainer.prepend(objectImageLink, objectName, likeButton, deleteButton);
   cardGrid.prepend(cardContainer);
 }
 
-// FUNCTION - Adicionar novo cartao
+// FUNCTION - Adicionar novo CARD
 function addNewCard(event) {
   event.preventDefault();
   createCard(firstInput.value, secondInput.value);
   closePopup();
 }
+
+function removeCardElement(event) {
+  console.log(event);
+}
+
+// FUNCTION - Deletar CARD
+function deleteCard() {
+  let deleteButton = document.querySelectorAll("#delete-button");
+  allDeleteButtons = Array.from(deleteButton);
+  console.log(allDeleteButtons);
+}
+deleteCard();
 
 // FUNCTION - Abrir Popup CARD
 function openPopupCard() {
