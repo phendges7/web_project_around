@@ -1,7 +1,89 @@
-// CARDS //
-const cardGrid = document.querySelector(".photo-grid");
+/***********************************/
+// POPUP //
+// Variaveis Globais POPUP
+const overlay = document.querySelector(".overlay");
+const editProfileButton = document.querySelector(
+  ".profile__edit-profile-button"
+);
+const popup = document.querySelector(".popup");
+let submitButton;
 
-// Vetor objetos iniciais
+// FUNCTION - construir popup
+function buildPopup(
+  titleValue,
+  firstInputPlaceholder,
+  secondInputPlaceholder,
+  buttonLabel
+) {
+  popup.innerHTML = ""; //LIMPAR QQ POPUP EXISTENTE
+  popup.classList.add("popup_opened");
+
+  const popupPosition = document.createElement("div");
+  popupPosition.classList.add("popup__position");
+
+  const popupCloseButton = document.createElement("img");
+  popupCloseButton.setAttribute("src", "./images/closeIcon.svg");
+  popupCloseButton.setAttribute("alt", "Fechar");
+  popupCloseButton.classList.add("popup__close-button");
+
+  const popupForm = document.createElement("form");
+  popupForm.classList.add("popup__wrapper");
+
+  const popupTitle = document.createElement("h3");
+  popupTitle.classList.add("popup__title");
+  popupTitle.textContent = titleValue;
+
+  const popupFirstInput = document.createElement("input");
+  popupFirstInput.type = "text";
+  popupFirstInput.classList.add("popup__input");
+  popupFirstInput.setAttribute("placeholder", firstInputPlaceholder);
+  popupFirstInput.setAttribute("id", "firstInput");
+
+  const popupSecondInput = document.createElement("input");
+  popupSecondInput.type = "text";
+  popupSecondInput.classList.add("popup__input");
+  popupSecondInput.setAttribute("placeholder", secondInputPlaceholder);
+  popupSecondInput.setAttribute("id", "secondInput");
+
+  const popupSubmitButton = document.createElement("button");
+  popupSubmitButton.type = "submit";
+  popupSubmitButton.classList.add("popup__submit-button");
+  popupSubmitButton.textContent = buttonLabel;
+
+  //Constroi FORM
+  popupForm.append(popupTitle);
+  popupForm.append(popupFirstInput);
+  popupForm.append(popupSecondInput);
+  popupForm.append(popupSubmitButton);
+
+  popupPosition.append(popupCloseButton);
+  popupPosition.append(popupForm);
+
+  popup.append(popupPosition);
+}
+
+// FUNCTION - Renderizar submitButton
+function renderSubmit() {
+  if (firstInput.value.trim() == "" || secondInput.value.trim() == "") {
+    submitButton.setAttribute("disabled", true);
+    submitButton.classList.add("disabled");
+  } else {
+    submitButton.removeAttribute("disabled");
+    submitButton.classList.remove("disabled");
+  }
+}
+
+// FUNCTION - Fechar popup
+function closePopup() {
+  overlay.classList.remove("visible");
+  popup.classList.remove("popup_opened");
+}
+
+/***********************************/
+// CARDS //
+// Variaveis Globais CARTOES
+const cardGrid = document.querySelector(".photo-grid");
+const addPlaceButton = document.querySelector(".profile__add-place-button");
 const initialCards = [
   {
     name: "New York, NY",
@@ -34,7 +116,7 @@ initialCards.forEach((element) => {
   createCard(element.name, element.link);
 });
 
-// FUNCTION - criar cartao
+// FUNCTION - criar objeto cartao
 function createCard(nameValue, linkValue) {
   const cardContainer = document.createElement("div");
   cardContainer.classList.add("photo-grid__item");
@@ -53,82 +135,55 @@ function createCard(nameValue, linkValue) {
   likeButton.addEventListener("click", function () {
     likeButton.classList.toggle("active");
   });
-
-  cardContainer.append(objectImageLink, objectName, likeButton);
-  cardGrid.append(cardContainer);
+  cardContainer.prepend(objectImageLink, objectName, likeButton);
+  cardGrid.prepend(cardContainer);
 }
+
+// FUNCTION - Adicionar novo cartao
+function addNewCard(event) {
+  event.preventDefault();
+  createCard(firstInput.value, secondInput.value);
+  closePopup();
+}
+
+// FUNCTION - Abrir Popup CARD
+function openPopupCard() {
+  overlay.classList.add("visible");
+
+  const titleValue = "NOVO LOCAL";
+  const firstInputPlaceholder = "Titulo";
+  const secondInputPlaceholder = "Link da imagem";
+  const buttonLabel = "CRIAR";
+
+  buildPopup(
+    titleValue,
+    firstInputPlaceholder,
+    secondInputPlaceholder,
+    buttonLabel
+  );
+
+  // Atualize as referências após a construção do popup
+  const popupFirstInput = popup.querySelector("#firstInput");
+  const popupSecondInput = popup.querySelector("#secondInput");
+  submitButton = document.querySelector(".popup__submit-button");
+  const closeButton = popup.querySelector(".popup__close-button");
+
+  // Validar campos popup
+  renderSubmit();
+  popupFirstInput.addEventListener("input", renderSubmit);
+  popupSecondInput.addEventListener("input", renderSubmit);
+  closeButton.addEventListener("click", closePopup);
+  submitButton.addEventListener("click", addNewCard);
+}
+
+addPlaceButton.addEventListener("click", openPopupCard);
 
 /***********************************/
+//PROFILE
 
-// POPUP //
-const page = document.querySelector(".page");
-const overlay = document.querySelector(".overlay");
-const editProfileButton = page.querySelector(".profile__edit-profile-button");
-
-// FUNCTION - construir popup
-function buildPopup(titleValue, firstInputPlaceholder, secondInputPlaceholder) {
-  popup.innerHTML = ""; //LIMPAR QQ POPUP EXISTENTE
-
-  popup.classList.add("popup_opened");
-
-  const popupPosition = document.createElement("div");
-  popupPosition.classList.add("popup__position");
-
-  const popupCloseButton = document.createElement("img");
-  popupCloseButton.src = "./images/closeIcon.svg";
-  popupCloseButton.alt = "Fechar";
-  popupCloseButton.classList.add("popup__close-button");
-
-  const popupForm = document.createElement("form");
-  popupForm.classList.add("popup__wrapper");
-
-  const popupTitle = document.createElement("h3");
-  popupTitle.classList.add("popup__title");
-  popupTitle.textContent = titleValue;
-
-  const popupFirstInput = document.createElement("input");
-  popupFirstInput.type = "text";
-  popupFirstInput.classList.add("popup__input");
-  popupFirstInput.placeholder = firstInputPlaceholder;
-
-  const popupSecondInput = document.createElement("input");
-  popupSecondInput.type = "text";
-  popupSecondInput.classList.add("popup__input", ".popup__second-input");
-  popupSecondInput.placeholder = secondInputPlaceholder;
-
-  const popupSubmitButton = document.createElement("button");
-  popupSubmitButton.type = "submit";
-  popupSubmitButton.classList.add("popup__submit-button");
-  popupSubmitButton.textContent = "SALVAR";
-
-  //Constroi FORM
-  popupForm.append(popupTitle);
-  popupForm.append(popupFirstInput);
-  popupForm.append(popupSecondInput);
-  popupForm.append(popupSubmitButton);
-
-  popupPosition.append(popupCloseButton);
-  popupPosition.append(popupForm);
-
-  popup.append(popupPosition);
-
-  page.append(popup);
-}
-
-// FUNCTION - Renderizar submitButton
-function renderSubmit() {
-  const firstInput = document.querySelector(".popup__input");
-  const secondInput = document.querySelector(".popup__second-input");
-  const submitButton = document.querySelector(".popup__submit-button");
-
-  if (firstInput.value.trim() === "" || secondInput.value.trim() === "") {
-    submitButton.setAttribute("disabled", true);
-    submitButton.classList.add("disabled");
-  } else {
-    submitButton.removeAttribute("disabled");
-    submitButton.classList.remove("disabled");
-  }
-}
+//Variaveis editUser
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
 
 // FUNCTION - Abrir Popup USER
 function openPopupUser() {
@@ -137,31 +192,35 @@ function openPopupUser() {
   const titleValue = "EDITAR PERFIL";
   const firstInputPlaceholder = "Nome";
   const secondInputPlaceholder = "Sobre mim";
+  const buttonLabel = "SALVAR";
 
-  buildPopup(titleValue, firstInputPlaceholder, secondInputPlaceholder);
+  buildPopup(
+    titleValue,
+    firstInputPlaceholder,
+    secondInputPlaceholder,
+    buttonLabel
+  );
 
   // Atualize as referências após a construção do popup
-  const popupFirstInput = document.querySelector(".popup__input");
-  const popupSecondInput = document.querySelector(".popup__second-input");
-  const submitButton = document.querySelector(".popup__submit-button");
-  const closeButton = document.querySelector(".popup__close-button");
+  const popupFirstInput = popup.querySelector("#firstInput");
+  const popupSecondInput = popup.querySelector("#secondInput");
+  submitButton = document.querySelector(".popup__submit-button");
+  const closeButton = popup.querySelector(".popup__close-button");
 
-  // Debugging
-  console.log("popupFirstInput:", popupFirstInput);
-  console.log("popupSecondInput:", popupSecondInput);
-  console.log("submitButton:", submitButton);
-  console.log("closeButton:", closeButton);
-
-  // Verifique se os elementos existem antes de adicionar os listeners
-  if (popupFirstInput && popupSecondInput && submitButton && closeButton) {
-    popupFirstInput.addEventListener("input", renderSubmit);
-    popupSecondInput.addEventListener("input", renderSubmit);
-    closeButton.addEventListener("click", closePopup);
-    submitButton.addEventListener("click", editUser);
-  } else {
-    console.error("Um ou mais elementos do popup não foram encontrados.");
-  }
+  // Validar campos popup
+  renderSubmit();
+  popupFirstInput.addEventListener("input", renderSubmit);
+  popupSecondInput.addEventListener("input", renderSubmit);
+  closeButton.addEventListener("click", closePopup);
+  submitButton.addEventListener("click", editUser);
 }
 
-//RUNNING FUNCTIONS
+// FUNCTION - Editar Perfil do Usuario
+function editUser(event) {
+  event.preventDefault();
+  profileName.textContent = firstInput.value;
+  profileDescription.textContent = secondInput.value;
+  closePopup();
+}
+
 editProfileButton.addEventListener("click", openPopupUser);
