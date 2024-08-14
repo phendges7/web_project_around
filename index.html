@@ -34,7 +34,7 @@
               <img
                 src="./images/editButton.svg"
                 alt="Editar Perfil"
-                class="profile__edit-profile-button"
+                class="profile__edit-button"
               />
             </div>
             <p class="profile__description">Explorador</p>
@@ -44,7 +44,59 @@
 
         <section class="photo-grid"></section>
 
-        <section class="popup"></section>
+        <section class="popup" id="popupProfile">
+          <div class="popup__position">
+            <img
+              src="./images/closeIcon.svg"
+              alt="Fechar"
+              class="popup__close-button"
+            />
+            <form class="popup__wrapper">
+              <h3 class="popup__title">EDITAR PERFIL</h3>
+              <input type="text" class="popup__input" placeholder="Nome" />
+              <input type="text" class="popup__input" placeholder="Sobre mim" />
+              <button type="submit" class="popup__submit-button">SALVAR</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="popup" id="popupCard">
+          <div class="popup__position">
+            <img
+              src="./images/closeIcon.svg"
+              alt="Fechar"
+              class="popup__close-button"
+            />
+            <form class="popup__wrapper">
+              <h3 class="popup__title">NOVO LOCAL</h3>
+              <input
+                type="text"
+                class="popup__input"
+                id="inputImageTitle"
+                placeholder="Titulo*"
+              />
+              <input
+                type="text"
+                class="popup__input"
+                id="inputImageURL"
+                placeholder="Link da imagem*"
+              />
+              <button type="submit" class="popup__submit-button">SALVAR</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="popupImage">
+          <div class="popupImage__wrapper">
+            <img
+              src="./images/closeIcon.svg"
+              alt="Fechar"
+              class="popupImage__close-button"
+            />
+            <img src="" alt="" class="popupImage__big" />
+            <p class="popupImage__title"></p>
+          </div>
+        </section>
       </main>
       <footer class="footer" id="footer">
         <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
@@ -61,17 +113,6 @@
         />
         <p class="card__name"></p>
         <button class="card__like-button"></button>
-      </div>
-    </template>
-    <template id="popup">
-      <div class="popup__position">
-        <img src="" alt="" class="popup__close-button" />
-        <form class="popup__wrapper">
-          <h3 class="popup__title"></h3>
-          <input type="text" class="popup__input" id="" />
-          <input type="text" class="popup__input" id="" />
-          <button type="submit" class="popup__submit-button"></button>
-        </form>
       </div>
     </template>
     <script src="./scripts/index.js" type="module"></script>

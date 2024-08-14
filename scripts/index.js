@@ -1,87 +1,26 @@
 /***********************************/
-// POPUP //
 // Variaveis Globais POPUP
+// FUNÇÃO - Seleciona e retorna os elementos do popup
+function getPopupElements(popupElement) {
+  return {
+    firstInput: popupElement.querySelector(".popup__input:nth-child(2)"),
+    secondInput: popupElement.querySelector(".popup__input:nth-child(3)"),
+    closeButton: popupElement.querySelector(".popup__close-button"),
+    submitButton: popupElement.querySelector(".popup__submit-button"),
+  };
+}
+
+// Selecionando os popups
+const popupProfile = document.querySelector("#popupProfile");
+const popupCard = document.querySelector("#popupCard");
+
+// Obtendo os elementos dos popups
+const profileElements = getPopupElements(popupProfile);
+const cardElements = getPopupElements(popupCard);
+
 const overlay = document.querySelector(".overlay");
-const editProfileButton = document.querySelector(
-  ".profile__edit-profile-button"
-);
-const popup = document.querySelector(".popup");
-let submitButton;
 
-// FUNCTION - construir popup
-function buildPopup(
-  titleValue,
-  firstInputPlaceholder,
-  secondInputPlaceholder,
-  buttonLabel
-) {
-  popup.innerHTML = ""; //LIMPAR QQ POPUP EXISTENTE
-  popup.classList.add("popup_opened");
-
-  const popupPosition = document.createElement("div");
-  popupPosition.classList.add("popup__position");
-
-  const popupCloseButton = document.createElement("img");
-  popupCloseButton.setAttribute("src", "./images/closeIcon.svg");
-  popupCloseButton.setAttribute("alt", "Fechar");
-  popupCloseButton.classList.add("popup__close-button");
-
-  const popupForm = document.createElement("form");
-  popupForm.classList.add("popup__wrapper");
-
-  const popupTitle = document.createElement("h3");
-  popupTitle.classList.add("popup__title");
-  popupTitle.textContent = titleValue;
-
-  const popupFirstInput = document.createElement("input");
-  popupFirstInput.type = "text";
-  popupFirstInput.classList.add("popup__input");
-  popupFirstInput.setAttribute("placeholder", firstInputPlaceholder);
-  popupFirstInput.setAttribute("id", "firstInput");
-
-  const popupSecondInput = document.createElement("input");
-  popupSecondInput.type = "text";
-  popupSecondInput.classList.add("popup__input");
-  popupSecondInput.setAttribute("placeholder", secondInputPlaceholder);
-  popupSecondInput.setAttribute("id", "secondInput");
-
-  const popupSubmitButton = document.createElement("button");
-  popupSubmitButton.type = "submit";
-  popupSubmitButton.classList.add("popup__submit-button");
-  popupSubmitButton.textContent = buttonLabel;
-
-  //Constroi FORM
-  popupForm.append(popupTitle);
-  popupForm.append(popupFirstInput);
-  popupForm.append(popupSecondInput);
-  popupForm.append(popupSubmitButton);
-
-  popupPosition.append(popupCloseButton);
-  popupPosition.append(popupForm);
-
-  popup.append(popupPosition);
-}
-
-// FUNCTION - Renderizar submitButton
-function renderSubmit() {
-  if (firstInput.value.trim() == "" || secondInput.value.trim() == "") {
-    submitButton.setAttribute("disabled", true);
-    submitButton.classList.add("disabled");
-  } else {
-    submitButton.removeAttribute("disabled");
-    submitButton.classList.remove("disabled");
-  }
-}
-
-// FUNCTION - Fechar popup
-function closePopup() {
-  overlay.classList.remove("visible");
-  popup.classList.remove("popup_opened");
-}
-
-/***********************************/
-// CARDS //
-// Variaveis Globais
+// Variaveis Globais CARDS
 const addPlaceButton = document.querySelector(".profile__add-place-button");
 const cardGrid = document.querySelector(".photo-grid");
 const initialCards = [
@@ -111,12 +50,45 @@ const initialCards = [
   },
 ];
 
-// Popular CARDS iniciais
-initialCards.forEach((element) => {
-  createCard(element.name, element.link);
-});
+//Variaveis globais PROFILE
+const editProfileButton = document.querySelector(".profile__edit-button");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
 
-// FUNCTION - criar objeto CARD
+//Variaveis globais POPUP IMAGEM
+const popupImage = document.querySelector(".popupImage");
+
+/***********************************/
+// POPUP //
+// FUNCTION - Ativa/Desativa Overlay e modifica classe popup
+function openOverlayAndPopup(popupElement) {
+  overlay.classList.add("visible");
+  popupElement.classList.add("popup__opened");
+}
+function closeOverlayAndPopup(popupElement) {
+  overlay.classList.remove("visible");
+  popupElement.classList.remove("popup__opened");
+}
+
+//Renderizar submitButton
+function renderSubmit(firstInput, secondInput, submitButton) {
+  if (firstInput.value.trim() === "" || secondInput.value.trim() === "") {
+    submitButton.setAttribute("disabled", true);
+    submitButton.classList.add("disabled");
+  } else {
+    submitButton.removeAttribute("disabled");
+    submitButton.classList.remove("disabled");
+  }
+}
+
+/***********************************/
+// CARDS //
+// FUNCTION - Popular CARDS iniciais
+function addInitialCards() {
+  initialCards.forEach((card) => createCard(card.name, card.link));
+}
+
+// FUNCTION - Criar objeto CARD
 function createCard(nameValue, linkValue) {
   const cardContainer = document.createElement("div");
   cardContainer.classList.add("photo-grid__item");
@@ -139,107 +111,147 @@ function createCard(nameValue, linkValue) {
   deleteButton.setAttribute("alt", "Delete");
   deleteButton.setAttribute("id", "delete-button");
 
-  likeButton.addEventListener("click", function () {
-    likeButton.classList.toggle("active");
-  });
+  objectImageLink.addEventListener("click", openPopupImage);
+  likeButton.addEventListener("click", () =>
+    likeButton.classList.toggle("active")
+  );
+  deleteButton.addEventListener("click", deleteCard);
+
   cardContainer.prepend(objectImageLink, objectName, likeButton, deleteButton);
   cardGrid.prepend(cardContainer);
+  deleteCard();
 }
 
 // FUNCTION - Adicionar novo CARD
 function addNewCard(event) {
   event.preventDefault();
-  createCard(firstInput.value, secondInput.value);
-  closePopup();
+  createCard(cardElements.firstInput.value, cardElements.secondInput.value);
+  closeOverlayAndPopup(popupCard);
 }
 
+// FUNCTION - aponta qual CARD deve ser removido
 function removeCardElement(event) {
-  console.log(event);
+  event.target.parentElement.remove();
 }
 
 // FUNCTION - Deletar CARD
 function deleteCard() {
-  let deleteButton = document.querySelectorAll("#delete-button");
-  allDeleteButtons = Array.from(deleteButton);
-  console.log(allDeleteButtons);
+  const deleteButton = document.querySelectorAll("#delete-button");
+  let allDeleteButtons = Array.from(deleteButton);
+  allDeleteButtons.forEach((button) =>
+    button.addEventListener("click", removeCardElement)
+  );
 }
-deleteCard();
 
 // FUNCTION - Abrir Popup CARD
 function openPopupCard() {
-  overlay.classList.add("visible");
+  openOverlayAndPopup(popupCard);
 
-  const titleValue = "NOVO LOCAL";
-  const firstInputPlaceholder = "Titulo";
-  const secondInputPlaceholder = "Link da imagem";
-  const buttonLabel = "CRIAR";
-
-  buildPopup(
-    titleValue,
-    firstInputPlaceholder,
-    secondInputPlaceholder,
-    buttonLabel
+  // Valida os campos do popup de novo local
+  renderSubmit(
+    cardElements.firstInput,
+    cardElements.secondInput,
+    cardElements.submitButton
+  );
+  cardElements.firstInput.addEventListener("input", () =>
+    renderSubmit(
+      cardElements.firstInput,
+      cardElements.secondInput,
+      cardElements.submitButton
+    )
+  );
+  cardElements.secondInput.addEventListener("input", () =>
+    renderSubmit(
+      cardElements.firstInput,
+      cardElements.secondInput,
+      cardElements.submitButton
+    )
   );
 
-  // Atualize as referências após a construção do popup
-  const popupFirstInput = popup.querySelector("#firstInput");
-  const popupSecondInput = popup.querySelector("#secondInput");
-  submitButton = document.querySelector(".popup__submit-button");
-  const closeButton = popup.querySelector(".popup__close-button");
-
-  // Validar campos popup
-  renderSubmit();
-  popupFirstInput.addEventListener("input", renderSubmit);
-  popupSecondInput.addEventListener("input", renderSubmit);
-  closeButton.addEventListener("click", closePopup);
-  submitButton.addEventListener("click", addNewCard);
+  cardElements.closeButton.addEventListener("click", () =>
+    closeOverlayAndPopup(popupCard)
+  );
+  cardElements.submitButton.addEventListener("click", addNewCard);
 }
 
-addPlaceButton.addEventListener("click", openPopupCard);
+// FUNCTION - Valida existencia de CARDS
+function checkCardContainer() {}
 
 /***********************************/
 //PROFILE
-
-//Variaveis editUser
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-
 // FUNCTION - Abrir Popup USER
 function openPopupUser() {
-  overlay.classList.add("visible");
+  openOverlayAndPopup(popupProfile);
 
-  const titleValue = "EDITAR PERFIL";
-  const firstInputPlaceholder = "Nome";
-  const secondInputPlaceholder = "Sobre mim";
-  const buttonLabel = "SALVAR";
-
-  buildPopup(
-    titleValue,
-    firstInputPlaceholder,
-    secondInputPlaceholder,
-    buttonLabel
+  // Validar campos do popup
+  renderSubmit(
+    profileElements.firstInput,
+    profileElements.secondInput,
+    profileElements.submitButton
+  );
+  profileElements.firstInput.addEventListener("input", () =>
+    renderSubmit(
+      profileElements.firstInput,
+      profileElements.secondInput,
+      profileElements.submitButton
+    )
+  );
+  profileElements.secondInput.addEventListener("input", () =>
+    renderSubmit(
+      profileElements.firstInput,
+      profileElements.secondInput,
+      profileElements.submitButton
+    )
   );
 
-  // Atualize as referências após a construção do popup
-  const popupFirstInput = popup.querySelector("#firstInput");
-  const popupSecondInput = popup.querySelector("#secondInput");
-  submitButton = document.querySelector(".popup__submit-button");
-  const closeButton = popup.querySelector(".popup__close-button");
-
-  // Validar campos popup
-  renderSubmit();
-  popupFirstInput.addEventListener("input", renderSubmit);
-  popupSecondInput.addEventListener("input", renderSubmit);
-  closeButton.addEventListener("click", closePopup);
-  submitButton.addEventListener("click", editUser);
+  profileElements.closeButton.addEventListener("click", () =>
+    closeOverlayAndPopup(popupProfile)
+  );
+  profileElements.submitButton.addEventListener("click", editUser);
 }
 
 // FUNCTION - Editar Perfil do Usuario
 function editUser(event) {
   event.preventDefault();
-  profileName.textContent = firstInput.value;
-  profileDescription.textContent = secondInput.value;
-  closePopup();
+
+  profileName.textContent = profileElements.firstInput.value;
+  profileDescription.textContent = profileElements.secondInput.value;
+
+  closeOverlayAndPopup(popupProfile);
 }
 
-editProfileButton.addEventListener("click", openPopupUser);
+/***********************************/
+//EXPANDIR IMAGEM
+
+// FUNCTION - construir popup imagem grande
+function openPopupImage(event) {
+  const imgElement = event.target;
+  openOverlayAndPopup(popupImage); // Verifique se esta função adiciona a classe 'popup__opened'
+
+  const imageCloseButton = popupImage.querySelector(
+    ".popupImage__close-button"
+  );
+  const imageExpanded = popupImage.querySelector(".popupImage__big");
+  const imageTitle = popupImage.querySelector(".popupImage__title");
+
+  imageExpanded.src = imgElement.src;
+  imageExpanded.alt = imgElement.alt;
+  imageTitle.textContent = imgElement.alt;
+
+  console.log(popupImage.classList); // Deve incluir 'popup__opened'
+
+  imageCloseButton.addEventListener("click", () =>
+    closeOverlayAndPopup(popupImage)
+  );
+}
+
+// FUNCTION - Inicializa funcoes
+function init() {
+  addInitialCards();
+  deleteCard();
+  editProfileButton.addEventListener("click", openPopupUser);
+  addPlaceButton.addEventListener("click", openPopupCard);
+}
+
+// Inicia functions
+init();

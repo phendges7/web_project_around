@@ -42,12 +42,12 @@
   font-size: 18px;
 }
 
-.profile__edit-profile-button {
+.profile__edit-button {
   grid-area: button;
   margin: 15px 0 0 18px;
 }
 
-.profile__edit-profile-button:hover {
+.profile__edit-button:hover {
   opacity: 0.5;
   cursor: pointer;
 }
@@ -108,7 +108,7 @@
     margin: 0 10px;
   }
 
-  .profile__add-button {
+  .profile__add-place-button {
     width: 100%;
     margin-top: 36px;
     padding: 0;

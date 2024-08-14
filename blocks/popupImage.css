@@ -1,0 +1,51 @@
+.popupImage {
+  display: none; /* Esconde o popup por padrão */
+}
+
+.popup__opened {
+  display: flex; /* Força o display para flex quando a classe é adicionada */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.popupImage__big {
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: contain;
+}
+
+.popupImage__title {
+  color: #fff;
+  margin-top: 15px;
+  text-align: left;
+  align-self: flex-start;
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.popupImage__wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px; /* Espaço extra no topo para o botão */
+}
+
+.popupImage__close-button {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -30px; /* Posiciona o botão acima da div */
+  right: -50px; /* Posiciona o botão à direita da div */
+}
