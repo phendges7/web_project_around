@@ -2,12 +2,14 @@
   margin: 50px auto 0;
   display: grid;
   grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: repeat(auto, 1fr);
   column-gap: 17px;
   row-gap: 20px;
+  min-height: 100vh;
 }
 
 .photo-grid__item {
+  position: relative;
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, auto);
@@ -20,7 +22,7 @@
   overflow: hidden;
 }
 
-.photo-grid__item img {
+.photo-grid__item-img {
   grid-area: photo;
   width: 282px;
   height: 282px;
@@ -61,6 +63,16 @@
 
 .photo-grid__like-button.active {
   background: url(../images/likeButtonActive.svg) center no-repeat;
+}
+
+.photo-grid__delete-button {
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  width: 18px;
+  height: 19px;
+  z-index: 1;
+  cursor: pointer;
 }
 
 /*------- Consulta midia MEDIA -------*/

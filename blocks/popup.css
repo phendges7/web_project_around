@@ -18,6 +18,17 @@
 /* Estilos básicos do popup */
 .popup {
   display: none;
+}
+
+.popup__position {
+  position: relative;
+}
+
+.popup__opened {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 1; /* Torna visível */
   position: fixed;
   top: 50%; /* Centraliza verticalmente */
   left: 50%; /* Centraliza horizontalmente */
@@ -29,18 +40,6 @@
   height: 330px;
   z-index: 100;
   transition: opacity 1s ease, visibility 1s ease;
-  opacity: 0; /* Inicialmente invisível */
-}
-
-.popup__position {
-  position: relative;
-}
-
-.popup_opened {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  opacity: 1; /* Torna visível */
 }
 
 .popup__wrapper {
@@ -58,9 +57,15 @@
 .popup__title {
   margin-bottom: 54px;
   padding-left: 1px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
 }
 
 .popup__input {
+  margin-bottom: 29px;
   border: none;
   border-bottom: 1px solid #c4c4c4;
   color: #000;
@@ -76,12 +81,9 @@
   color: #c4c4c4;
 }
 
-.popup__description {
-  margin: 30px 0 48px;
-}
-
 /* Estilos do botao SALVAR */
 .popup__submit-button {
+  margin-top: 20px;
   height: 50px;
   font-family: "Inter";
   font-style: normal;
