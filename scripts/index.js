@@ -238,8 +238,6 @@ function openPopupImage(event) {
   imageExpanded.alt = imgElement.alt;
   imageTitle.textContent = imgElement.alt;
 
-  console.log(popupImage.classList); // Deve incluir 'popup__opened'
-
   imageCloseButton.addEventListener("click", () =>
     closeOverlayAndPopup(popupImage)
   );
