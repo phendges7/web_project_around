@@ -34,47 +34,17 @@
               <img
                 src="./images/editButton.svg"
                 alt="Editar Perfil"
-                class="profile__edit-profile-button"
+                class="profile__edit-button"
               />
             </div>
             <p class="profile__description">Explorador</p>
           </div>
-          <button class="profile__add-button"></button>
-        </section>
-        <section class="photo-grid">
-          <div class="photo-grid__item" id="NewYork">
-            <img src="./images/NewYork_Dumbo.jpg" alt="New York" />
-            <p class="photo-grid__item-name">New York, NY</p>
-            <button class="photo-grid__like-button"></button>
-          </div>
-          <div class="photo-grid__item" id="Miami">
-            <img src="./images/Miami.jpg" alt="Miami" />
-            <p class="photo-grid__item-name">Miami, FL</p>
-            <button class="photo-grid__like-button"></button>
-          </div>
-          <div class="photo-grid__item" id="LosAngeles">
-            <img src="./images/LosAngeles.jpg" alt="Los Angeles" />
-            <p class="photo-grid__item-name">Los Angeles, CA</p>
-            <button class="photo-grid__like-button"></button>
-          </div>
-          <div class="photo-grid__item">
-            <img src="./images/Chicago.jpg" alt="Chicago" />
-            <p class="photo-grid__item-name">Chicago, IL</p>
-            <button class="photo-grid__like-button"></button>
-          </div>
-          <div class="photo-grid__item">
-            <img src="./images/Boston.jpg" alt="Boston" />
-            <p class="photo-grid__item-name">Boston, MA</p>
-            <button class="photo-grid__like-button"></button>
-          </div>
-          <div class="photo-grid__item">
-            <img src="./images/Washington.jpg" alt="Washington" />
-            <p class="photo-grid__item-name">Washington, DC</p>
-            <button class="photo-grid__like-button"></button>
-          </div>
+          <button class="profile__add-place-button"></button>
         </section>
 
-        <div class="popup">
+        <section class="photo-grid"></section>
+
+        <section class="popup" id="popupProfile">
           <div class="popup__position">
             <img
               src="./images/closeIcon.svg"
@@ -83,25 +53,68 @@
             />
             <form class="popup__wrapper">
               <h3 class="popup__title">EDITAR PERFIL</h3>
+              <input type="text" class="popup__input" placeholder="Nome" />
+              <input type="text" class="popup__input" placeholder="Sobre mim" />
+              <button type="submit" class="popup__submit-button">SALVAR</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="popup" id="popupCard">
+          <div class="popup__position">
+            <img
+              src="./images/closeIcon.svg"
+              alt="Fechar"
+              class="popup__close-button"
+            />
+            <form class="popup__wrapper">
+              <h3 class="popup__title">NOVO LOCAL</h3>
               <input
                 type="text"
-                class="popup__input popup__name"
-                placeholder="Nome"
+                class="popup__input"
+                id="inputImageTitle"
+                placeholder="Titulo*"
               />
               <input
                 type="text"
-                class="popup__input popup__description"
-                placeholder="Sobre mim"
+                class="popup__input"
+                id="inputImageURL"
+                placeholder="Link da imagem*"
               />
               <button type="submit" class="popup__submit-button">SALVAR</button>
             </form>
           </div>
-        </div>
+        </section>
+
+        <section class="popupImage">
+          <div class="popupImage__wrapper">
+            <img
+              src="./images/closeIcon.svg"
+              alt="Fechar"
+              class="popupImage__close-button"
+            />
+            <img src="" alt="" class="popupImage__big" />
+            <p class="popupImage__title"></p>
+          </div>
+        </section>
       </main>
       <footer class="footer" id="footer">
         <p class="footer__copyright">&copy; 2024 Around The U.S.</p>
       </footer>
     </div>
+    <template id="card-template">
+      <div class="card">
+        <img class="card__image" src="" />
+        <img
+          src="./images/deleteButton.svg"
+          alt=""
+          class="card__delete-button"
+          id="delete-button"
+        />
+        <p class="card__name"></p>
+        <button class="card__like-button"></button>
+      </div>
+    </template>
     <script src="./scripts/index.js" type="module"></script>
   </body>
 </html>
