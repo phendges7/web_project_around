@@ -49,3 +49,12 @@
   top: -30px; /* Posiciona o botão acima da div */
   right: -50px; /* Posiciona o botão à direita da div */
 }
+
+/*------- Consulta midia PEQUENA -------*/
+@media screen and (max-width: 544px) {
+  .popupImage__close-button {
+    width: 30px;
+    height: 30px;
+    right: -25px;
+  }
+}
