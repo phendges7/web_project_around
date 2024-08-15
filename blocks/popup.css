@@ -123,7 +123,7 @@
 }
 
 /*------- Consulta midia PEQUENA -------*/
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 630px) {
   .popup {
     width: 282px;
     height: 322px;
