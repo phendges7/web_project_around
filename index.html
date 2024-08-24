@@ -51,10 +51,24 @@
               alt="Fechar"
               class="popup__close-button"
             />
-            <form class="popup__wrapper">
+            <form class="popup__wrapper" name="popupForm">
               <h3 class="popup__title">EDITAR PERFIL</h3>
-              <input type="text" class="popup__input" placeholder="Nome" />
-              <input type="text" class="popup__input" placeholder="Sobre mim" />
+              <input
+                type="text"
+                name="firstInput"
+                class="popup__input"
+                placeholder="Nome"
+                minlength="2"
+                maxlength="40"
+              />
+              <input
+                type="text"
+                name="secondInput"
+                class="popup__input"
+                placeholder="Sobre mim"
+                minlength="2"
+                maxlength="200"
+              />
               <button type="submit" class="popup__submit-button">SALVAR</button>
             </form>
           </div>
@@ -67,7 +81,7 @@
               alt="Fechar"
               class="popup__close-button"
             />
-            <form class="popup__wrapper">
+            <form class="popup__wrapper" name="popupForm">
               <h3 class="popup__title">NOVO LOCAL</h3>
               <input
                 type="text"

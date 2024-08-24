@@ -7,6 +7,11 @@ function getPopupElements(popupElement) {
     secondInput: popupElement.querySelector(".popup__input:nth-child(3)"),
     closeButton: popupElement.querySelector(".popup__close-button"),
     submitButton: popupElement.querySelector(".popup__submit-button"),
+    formElement: popupElement.querySelector(".popup__wrapper"),
+    formErrors: {
+      firstInputError: popupElement.querySelector(".firstInput-error"),
+      secondInputError: popupElement.querySelector(".secondInput-error"),
+    },
   };
 }
 
@@ -70,14 +75,31 @@ function closeOverlayAndPopup(popupElement) {
   popupElement.classList.remove("popup__opened");
 }
 
-//Renderizar submitButton
-function renderSubmit(firstInput, secondInput, submitButton) {
-  if (firstInput.value.trim() === "" || secondInput.value.trim() === "") {
-    submitButton.setAttribute("disabled", true);
-    submitButton.classList.add("disabled");
-  } else {
-    submitButton.removeAttribute("disabled");
-    submitButton.classList.remove("disabled");
+// FUNCTION - fecha popup com clique fora
+function handleClickOutside(event) {
+  const popups = [popupProfile, popupCard, popupImage];
+
+  // Verifica se o clique foi fora do popup (e não no botão de fechar, por exemplo)
+  popups.forEach((popupElement) => {
+    if (
+      popupElement.classList.contains("popup__opened") &&
+      !popupElement.contains(event.target)
+    ) {
+      closeOverlayAndPopup(popupElement);
+    }
+  });
+}
+
+// FUNCTION - fecha popup com ESC
+function handleEscapeKey(event) {
+  if (event.key === "Escape") {
+    const popups = [popupProfile, popupCard, popupImage]; // Array contendo todos os popups
+
+    popups.forEach((popupElement) => {
+      if (popupElement.classList.contains("popup__opened")) {
+        closeOverlayAndPopup(popupElement);
+      }
+    });
   }
 }
 
@@ -204,9 +226,19 @@ function openPopupUser() {
     )
   );
 
+  checkInputValidity(
+    profileElements.firstInput,
+    profileElements.formErrors.firstInputError
+  );
+  checkInputValidity(
+    profileElements.secondInput,
+    profileElements.formErrors.secondInputError
+  );
+
   profileElements.closeButton.addEventListener("click", () =>
     closeOverlayAndPopup(popupProfile)
   );
+  debugger;
   profileElements.submitButton.addEventListener("click", editUser);
 }
 
@@ -243,12 +275,68 @@ function openPopupImage(event) {
   );
 }
 
+/***********************************/
+//VALIDACAO
+// FUNCTION - Exibe mensagem de erro
+function showError(inputElement, errorElement, errorMessage) {
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add("popup__input-error");
+  inputElement.classList.add("popup__input-error");
+}
+
+// FUNCTION - Oculta mensagem de erro
+function hideError(inputElement, errorElement) {
+  errorElement.textContent.reset();
+  errorElement.classList.remove("popup__input-error");
+  inputElement.classList.remove("popup__input-error");
+}
+
+// FUNCTION - Valida campos do popup
+const checkInputValidity = (inputElement, errorElement) => {
+  if (!inputElement.validity.valid) {
+    showError(inputElement, errorElement, inputElement.validationMessage);
+  } else {
+    hideError(inputElement, errorElement);
+  }
+};
+
+// FUNCTION - Adiciona EventListeners para validar os campos em tempo real
+const setEventListeners = (popupElements) => {
+  const inputList = Array.from(
+    popupElements.formElement.querySelectorAll(".popup__input")
+  );
+
+  inputList.forEach((inputElement) => {
+    const errorElement = popupElements.formErrors[`${inputElement.name}Error`];
+
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(inputElement, errorElement);
+    });
+  });
+};
+
+// FUNCTION - Renderiza submitButton
+function renderSubmit(inputList, submitButton) {
+  if (firstInput.value.trim() === "" || secondInput.value.trim() === "") {
+    submitButton.setAttribute("disabled", true);
+    submitButton.classList.add("disabled");
+  } else {
+    submitButton.removeAttribute("disabled");
+    submitButton.classList.remove("disabled");
+  }
+}
+
+/***********************************/
 // FUNCTION - Inicializa funcoes
 function init() {
   addInitialCards();
   deleteCard();
+
   editProfileButton.addEventListener("click", openPopupUser);
   addPlaceButton.addEventListener("click", openPopupCard);
+
+  overlay.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 // Inicia functions
