@@ -123,10 +123,19 @@
 }
 
 /* Estilos da mensagem de erro */
-.popup__input-error {
+.popup__input-error_active {
   font-size: 12px;
   line-height: 1.25;
   color: #ff0000;
+  display: block;
+}
+
+.popup__input_type_error {
+  border: 2px solid #ff0000;
+}
+
+.popup__input-error {
+  display: none;
 }
 
 /*------- Consulta midia PEQUENA -------*/

@@ -204,42 +204,22 @@ function checkCardContainer() {}
 // FUNCTION - Abrir Popup USER
 function openPopupUser() {
   openOverlayAndPopup(popupProfile);
+  debugger;
 
   // Validar campos do popup
-  renderSubmit(
-    profileElements.firstInput,
-    profileElements.secondInput,
-    profileElements.submitButton
-  );
+  renderSubmit(profileElements);
   profileElements.firstInput.addEventListener("input", () =>
-    renderSubmit(
-      profileElements.firstInput,
-      profileElements.secondInput,
-      profileElements.submitButton
-    )
+    renderSubmit(profileElements)
   );
   profileElements.secondInput.addEventListener("input", () =>
-    renderSubmit(
-      profileElements.firstInput,
-      profileElements.secondInput,
-      profileElements.submitButton
-    )
-  );
-
-  checkInputValidity(
-    profileElements.firstInput,
-    profileElements.formErrors.firstInputError
-  );
-  checkInputValidity(
-    profileElements.secondInput,
-    profileElements.formErrors.secondInputError
+    renderSubmit(profileElements)
   );
 
   profileElements.closeButton.addEventListener("click", () =>
     closeOverlayAndPopup(popupProfile)
   );
-  debugger;
   profileElements.submitButton.addEventListener("click", editUser);
+  enableValidation();
 }
 
 // FUNCTION - Editar Perfil do Usuario
@@ -278,53 +258,75 @@ function openPopupImage(event) {
 /***********************************/
 //VALIDACAO
 // FUNCTION - Exibe mensagem de erro
-function showError(inputElement, errorElement, errorMessage) {
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add("popup__input_type_error");
   errorElement.textContent = errorMessage;
-  errorElement.classList.add("popup__input-error");
-  inputElement.classList.add("popup__input-error");
-}
+  errorElement.classList.add("popup__input-error_active");
+};
 
 // FUNCTION - Oculta mensagem de erro
-function hideError(inputElement, errorElement) {
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove("popup__input_type_error");
+  errorElement.classList.remove("popup__input-error_active");
   errorElement.textContent.reset();
-  errorElement.classList.remove("popup__input-error");
-  inputElement.classList.remove("popup__input-error");
-}
+};
 
 // FUNCTION - Valida campos do popup
-const checkInputValidity = (inputElement, errorElement) => {
+const checkInputValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
-    showError(inputElement, errorElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
-    hideError(inputElement, errorElement);
+    hideInputError(formElement, inputElement);
   }
 };
 
-// FUNCTION - Adiciona EventListeners para validar os campos em tempo real
-const setEventListeners = (popupElements) => {
-  const inputList = Array.from(
-    popupElements.formElement.querySelectorAll(".popup__input")
-  );
-
-  inputList.forEach((inputElement) => {
-    const errorElement = popupElements.formErrors[`${inputElement.name}Error`];
-
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(inputElement, errorElement);
-    });
+// FUNCTION - Verifica se existe input invalido
+const hasInvalidInput = (inputList) => {
+  const inputArray = Array.from(inputList);
+  return inputArray.some((inputElement) => {
+    return !inputElement.validity.valid;
   });
 };
 
 // FUNCTION - Renderiza submitButton
-function renderSubmit(inputList, submitButton) {
-  if (firstInput.value.trim() === "" || secondInput.value.trim() === "") {
-    submitButton.setAttribute("disabled", true);
-    submitButton.classList.add("disabled");
+const renderSubmit = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add("button_inactive");
+    buttonElement.disabled = true;
   } else {
-    submitButton.removeAttribute("disabled");
-    submitButton.classList.remove("disabled");
+    buttonElement.classList.remove("button_inactive");
+    buttonElement.disabled = false;
   }
-}
+};
+
+// FUNCTION - Adiciona EventListeners para validar os campos em tempo real
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
+  const buttonElement = formElement.querySelector(".popup__submit-button");
+  debugger;
+  renderSubmit(inputList, buttonElement); // Verifica o estado inicial
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(formElement, inputElement);
+      renderSubmit(inputList, buttonElement);
+    });
+  });
+};
+
+// FUNCTION - Habilita validacao
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll(".popup__wrapper"));
+  formList.forEach((formElement) => {
+    formElement.addEventListener("submit", function (evt) {
+      evt.preventDefault(); // Impede o envio do formulário padrão
+    });
+
+    setEventListeners(formElement);
+  });
+};
 
 /***********************************/
 // FUNCTION - Inicializa funcoes
