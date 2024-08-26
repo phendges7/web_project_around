@@ -1,33 +1,22 @@
-/***********************************/
-// Variaveis Globais POPUP
-// FUNÇÃO - Seleciona e retorna os elementos do popup
-function getPopupElements(popupElement) {
-  return {
-    firstInput: popupElement.querySelector(".popup__input:nth-child(2)"),
-    secondInput: popupElement.querySelector(".popup__input:nth-child(3)"),
-    closeButton: popupElement.querySelector(".popup__close-button"),
-    submitButton: popupElement.querySelector(".popup__submit-button"),
-    formElement: popupElement.querySelector(".popup__wrapper"),
-    formErrors: {
-      firstInputError: popupElement.querySelector(".firstInput-error"),
-      secondInputError: popupElement.querySelector(".secondInput-error"),
-    },
-  };
-}
+import {
+  setCustomErrorMessages,
+  renderSubmit,
+  enableValidation,
+} from "./validate.js";
 
-// Selecionando os popups
-const popupProfile = document.querySelector("#popupProfile");
-const popupCard = document.querySelector("#popupCard");
-
-// Obtendo os elementos dos popups
-const profileElements = getPopupElements(popupProfile);
-const cardElements = getPopupElements(popupCard);
-
+// Variáveis Globais
+export const popupProfile = document.querySelector("#popupProfile");
+export const popupCard = document.querySelector("#popupCard");
+const popupImage = document.querySelector(".popupImage");
 const overlay = document.querySelector(".overlay");
 
-// Variaveis Globais CARDS
 const addPlaceButton = document.querySelector(".profile__add-place-button");
 const cardGrid = document.querySelector(".photo-grid");
+const editProfileButton = document.querySelector(".profile__edit-button");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+
+// Vetor com cards iniciais
 const initialCards = [
   {
     name: "New York, NY",
@@ -55,16 +44,22 @@ const initialCards = [
   },
 ];
 
-//Variaveis globais PROFILE
-const editProfileButton = document.querySelector(".profile__edit-button");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-
-//Variaveis globais POPUP IMAGEM
-const popupImage = document.querySelector(".popupImage");
-
 /***********************************/
-// POPUP //
+// Funções de Popup
+export function getPopupElements(popupElement) {
+  return {
+    firstInput: popupElement.querySelector("[name='firstInput']"),
+    secondInput: popupElement.querySelector("[name='secondInput']"),
+    closeButton: popupElement.querySelector(".popup__close-button"),
+    submitButton: popupElement.querySelector(".popup__submit-button"),
+    formElement: popupElement.querySelector(".popup__wrapper"),
+    formErrors: {
+      firstInputError: popupElement.querySelector(".firstInput-error"),
+      secondInputError: popupElement.querySelector(".secondInput-error"),
+    },
+  };
+}
+
 // FUNCTION - Ativa/Desativa Overlay e modifica classe popup
 function openOverlayAndPopup(popupElement) {
   overlay.classList.add("visible");
@@ -104,141 +99,114 @@ function handleEscapeKey(event) {
 }
 
 /***********************************/
-// CARDS //
-// FUNCTION - Popular CARDS iniciais
-function addInitialCards() {
-  initialCards.forEach((card) => createCard(card.name, card.link));
-}
-
-// FUNCTION - Criar objeto CARD
-function createCard(nameValue, linkValue) {
+// Funções de Cartões
+function createCard(name, link) {
   const cardContainer = document.createElement("div");
   cardContainer.classList.add("photo-grid__item");
 
   const objectImageLink = document.createElement("img");
   objectImageLink.classList.add("photo-grid__item-img");
-  objectImageLink.src = linkValue;
-  objectImageLink.alt = nameValue;
+  objectImageLink.src = link;
+  objectImageLink.alt = name;
 
   const objectName = document.createElement("p");
   objectName.classList.add("photo-grid__item-name");
-  objectName.textContent = nameValue;
+  objectName.textContent = name;
 
   const likeButton = document.createElement("button");
   likeButton.classList.add("photo-grid__like-button");
 
   const deleteButton = document.createElement("img");
   deleteButton.classList.add("photo-grid__delete-button");
-  deleteButton.setAttribute("src", "../images/deleteButton.svg");
-  deleteButton.setAttribute("alt", "Delete");
-  deleteButton.setAttribute("id", "delete-button");
+  deleteButton.src = "../images/deleteButton.svg";
+  deleteButton.alt = "Delete";
 
   objectImageLink.addEventListener("click", openPopupImage);
   likeButton.addEventListener("click", () =>
     likeButton.classList.toggle("active")
   );
-  deleteButton.addEventListener("click", deleteCard);
+  deleteButton.addEventListener("click", removeCardElement);
 
   cardContainer.prepend(objectImageLink, objectName, likeButton, deleteButton);
   cardGrid.prepend(cardContainer);
-  deleteCard();
 }
 
-// FUNCTION - Adicionar novo CARD
+function addInitialCards() {
+  initialCards.forEach((card) => createCard(card.name, card.link));
+}
+
 function addNewCard(event) {
   event.preventDefault();
-  createCard(cardElements.firstInput.value, cardElements.secondInput.value);
+  const { firstInput, secondInput } = getPopupElements(popupCard);
+  createCard(firstInput.value, secondInput.value);
   closeOverlayAndPopup(popupCard);
 }
 
-// FUNCTION - aponta qual CARD deve ser removido
 function removeCardElement(event) {
-  event.target.parentElement.remove();
-}
-
-// FUNCTION - Deletar CARD
-function deleteCard() {
-  const deleteButton = document.querySelectorAll("#delete-button");
-  let allDeleteButtons = Array.from(deleteButton);
-  allDeleteButtons.forEach((button) =>
-    button.addEventListener("click", removeCardElement)
-  );
+  event.target.closest(".photo-grid__item").remove();
 }
 
 // FUNCTION - Abrir Popup CARD
 function openPopupCard() {
   openOverlayAndPopup(popupCard);
+  setCustomErrorMessages(popupCard);
+  enableValidation();
+
+  const { firstInput, secondInput, submitButton, closeButton } =
+    getPopupElements(popupCard);
+  renderSubmit([firstInput, secondInput], submitButton);
 
   // Valida os campos do popup de novo local
-  renderSubmit(
-    cardElements.firstInput,
-    cardElements.secondInput,
-    cardElements.submitButton
+  firstInput.addEventListener("input", () =>
+    renderSubmit([firstInput, secondInput], submitButton)
   );
-  cardElements.firstInput.addEventListener("input", () =>
-    renderSubmit(
-      cardElements.firstInput,
-      cardElements.secondInput,
-      cardElements.submitButton
-    )
-  );
-  cardElements.secondInput.addEventListener("input", () =>
-    renderSubmit(
-      cardElements.firstInput,
-      cardElements.secondInput,
-      cardElements.submitButton
-    )
+  secondInput.addEventListener("input", () =>
+    renderSubmit([firstInput, secondInput], submitButton)
   );
 
-  cardElements.closeButton.addEventListener("click", () =>
-    closeOverlayAndPopup(popupCard)
-  );
-  cardElements.submitButton.addEventListener("click", addNewCard);
+  closeButton.addEventListener("click", () => closeOverlayAndPopup(popupCard));
+  submitButton.addEventListener("click", addNewCard);
 }
 
-// FUNCTION - Valida existencia de CARDS
-function checkCardContainer() {}
-
 /***********************************/
-//PROFILE
-// FUNCTION - Abrir Popup USER
+// PROFILE
+// FUNCTION - Abrir popup PROFILE
 function openPopupUser() {
   openOverlayAndPopup(popupProfile);
-  debugger;
 
-  // Validar campos do popup
-  renderSubmit(profileElements);
-  profileElements.firstInput.addEventListener("input", () =>
-    renderSubmit(profileElements)
+  const { firstInput, secondInput, submitButton, closeButton } =
+    getPopupElements(popupProfile);
+  renderSubmit([firstInput, secondInput], submitButton);
+
+  firstInput.addEventListener("input", () =>
+    renderSubmit([firstInput, secondInput], submitButton)
   );
-  profileElements.secondInput.addEventListener("input", () =>
-    renderSubmit(profileElements)
+  secondInput.addEventListener("input", () =>
+    renderSubmit([firstInput, secondInput], submitButton)
   );
 
-  profileElements.closeButton.addEventListener("click", () =>
+  closeButton.addEventListener("click", () =>
     closeOverlayAndPopup(popupProfile)
   );
-  profileElements.submitButton.addEventListener("click", editUser);
+  submitButton.addEventListener("click", editUser);
   enableValidation();
 }
 
-// FUNCTION - Editar Perfil do Usuario
+// FUNCTION - Editar PROFILE
 function editUser(event) {
   event.preventDefault();
-
-  profileName.textContent = profileElements.firstInput.value;
-  profileDescription.textContent = profileElements.secondInput.value;
-
+  const { firstInput, secondInput } = getPopupElements(popupProfile);
+  profileName.textContent = firstInput.value;
+  profileDescription.textContent = secondInput.value;
   closeOverlayAndPopup(popupProfile);
 }
 
 /***********************************/
 //EXPANDIR IMAGEM
-
 // FUNCTION - construir popup imagem grande
 function openPopupImage(event) {
   const imgElement = event.target;
-  openOverlayAndPopup(popupImage); // Verifique se esta função adiciona a classe 'popup__opened'
+  openOverlayAndPopup(popupImage);
 
   const imageCloseButton = popupImage.querySelector(
     ".popupImage__close-button"
@@ -256,84 +224,9 @@ function openPopupImage(event) {
 }
 
 /***********************************/
-//VALIDACAO
-// FUNCTION - Exibe mensagem de erro
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add("popup__input_type_error");
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add("popup__input-error_active");
-};
-
-// FUNCTION - Oculta mensagem de erro
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove("popup__input_type_error");
-  errorElement.classList.remove("popup__input-error_active");
-  errorElement.textContent.reset();
-};
-
-// FUNCTION - Valida campos do popup
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-// FUNCTION - Verifica se existe input invalido
-const hasInvalidInput = (inputList) => {
-  const inputArray = Array.from(inputList);
-  return inputArray.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
-
-// FUNCTION - Renderiza submitButton
-const renderSubmit = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("button_inactive");
-    buttonElement.disabled = true;
-  } else {
-    buttonElement.classList.remove("button_inactive");
-    buttonElement.disabled = false;
-  }
-};
-
-// FUNCTION - Adiciona EventListeners para validar os campos em tempo real
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll(".popup__input"));
-  const buttonElement = formElement.querySelector(".popup__submit-button");
-  debugger;
-  renderSubmit(inputList, buttonElement); // Verifica o estado inicial
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(formElement, inputElement);
-      renderSubmit(inputList, buttonElement);
-    });
-  });
-};
-
-// FUNCTION - Habilita validacao
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll(".popup__wrapper"));
-  formList.forEach((formElement) => {
-    formElement.addEventListener("submit", function (evt) {
-      evt.preventDefault(); // Impede o envio do formulário padrão
-    });
-
-    setEventListeners(formElement);
-  });
-};
-
-/***********************************/
-// FUNCTION - Inicializa funcoes
+// Função de Inicialização
 function init() {
   addInitialCards();
-  deleteCard();
-
   editProfileButton.addEventListener("click", openPopupUser);
   addPlaceButton.addEventListener("click", openPopupCard);
 
@@ -341,5 +234,5 @@ function init() {
   document.addEventListener("keydown", handleEscapeKey);
 }
 
-// Inicia functions
+// Inicia funções
 init();

@@ -65,7 +65,6 @@
 }
 
 .popup__input {
-  margin-bottom: 29px;
   border: none;
   border-bottom: 1px solid #c4c4c4;
   color: #000;
@@ -123,7 +122,8 @@
 }
 
 /* Estilos da mensagem de erro */
-.popup__input-error_active {
+.popup__input-error_visible {
+  margin-bottom: 13px;
   font-size: 12px;
   line-height: 1.25;
   color: #ff0000;
@@ -131,7 +131,7 @@
 }
 
 .popup__input_type_error {
-  border: 2px solid #ff0000;
+  border-bottom: 2px solid #ff0000;
 }
 
 .popup__input-error {

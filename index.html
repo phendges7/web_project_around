@@ -53,6 +53,7 @@
             />
             <form class="popup__wrapper" name="popupForm">
               <h3 class="popup__title">EDITAR PERFIL</h3>
+              <!-- Primeiro campo de entrada com label e span para erros -->
               <input
                 type="text"
                 name="firstInput"
@@ -60,7 +61,11 @@
                 placeholder="Nome"
                 minlength="2"
                 maxlength="40"
+                required
               />
+              <span class="firstInput-error form__input-error"></span>
+
+              <!-- Segundo campo de entrada com span para erros -->
               <input
                 type="text"
                 name="secondInput"
@@ -68,7 +73,11 @@
                 placeholder="Sobre mim"
                 minlength="2"
                 maxlength="200"
+                required
               />
+              <span class="secondInput-error form__input-error"></span>
+
+              <!-- Botão de envio -->
               <button type="submit" class="popup__submit-button">SALVAR</button>
             </form>
           </div>
@@ -85,16 +94,27 @@
               <h3 class="popup__title">NOVO LOCAL</h3>
               <input
                 type="text"
+                name="firstInput"
                 class="popup__input"
-                id="inputImageTitle"
                 placeholder="Titulo*"
+                minlength="2"
+                maxlength="30"
+                required
               />
+              <span class="firstInput-error form__input-error"></span>
+
+              <!-- Segundo campo de entrada com span para erros -->
               <input
-                type="text"
+                type="url"
+                name="secondInput"
                 class="popup__input"
-                id="inputImageURL"
-                placeholder="Link da imagem*"
+                placeholder="URL da imagem*"
+                minlength="2"
+                maxlength="200"
+                required
               />
+              <span class="secondInput-error form__input-error"></span>
+
               <button type="submit" class="popup__submit-button">SALVAR</button>
             </form>
           </div>
