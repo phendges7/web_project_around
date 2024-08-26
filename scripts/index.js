@@ -1,8 +1,4 @@
-import {
-  setCustomErrorMessages,
-  renderSubmit,
-  enableValidation,
-} from "./validate.js";
+import { renderSubmit, enableValidation } from "./validate.js";
 
 // Variáveis Globais
 export const popupProfile = document.querySelector("#popupProfile");
@@ -149,7 +145,6 @@ function removeCardElement(event) {
 // FUNCTION - Abrir Popup CARD
 function openPopupCard() {
   openOverlayAndPopup(popupCard);
-  setCustomErrorMessages(popupCard);
   enableValidation();
 
   const { firstInput, secondInput, submitButton, closeButton } =

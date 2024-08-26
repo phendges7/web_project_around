@@ -2,29 +2,6 @@ import { getPopupElements, popupCard } from "./index.js";
 
 /***********************************/
 // VALIDACAO
-// FUNCTION - Personalizar mensagem de erros
-export function setCustomErrorMessages(popupElement) {
-  debugger;
-  // Verifique se o popupElement é o correto
-  console.log("Popup Element:", popupElement);
-
-  const result = getPopupElements(popupElement);
-  const firstInputError = result.firstInputError;
-  const secondInputError = result.secondInputError;
-
-  // Verifique se secondInputError está definido
-  console.log("First Input Error Element:", firstInputError);
-  console.log("Second Input Error Element:", secondInputError);
-
-  if (secondInputError) {
-    if (popupElement === popupCard) {
-      secondInputError.textContent = "Por favor, insira um endereço web.";
-    }
-  } else {
-    console.error("Elemento de erro não encontrado.");
-  }
-}
-
 // FUNCTION - Mostrar mensagem de erro
 export const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
