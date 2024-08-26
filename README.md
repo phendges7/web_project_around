@@ -1,6 +1,6 @@
 # Tripleten web_project_around
 
-## Este projeto foi criado para demonstrar um WebApp inicial, com valores de margem e altura linha usando valores variaveis, aplicacao de fontes direto na estrutura local do produto, incorporacao de layout usando grid com insercao de imagens locais, uso de formularios interagindo com JavaScript, personalizacao condicional de elementos e a aplicação de metadados HTML para melhorar a otimização do motor de busca (SEO).
+## Este projeto foi criado para demonstrar um WebApp inicial, com aplicacao de fontes direto na estrutura local do produto, incorporacao de layout usando grid com insercao de imagens locais, uso de formularios interagindo com JavaScript, personalizacao condicional de elementos e a aplicação de metadados HTML para melhorar a otimização do motor de busca (SEO).
 
 # Funcionalidades
 
@@ -51,6 +51,8 @@
 ### \* footer.css: Um arquivo CSS para estilos do bloco RODAPE e dos elementos filhos.
 
 ### \* index.js: Um arquivo JS contendo todas as funcoes aplicadas na WebApp na parte do POPUP.
+
+### \* validate.js: Um arquivo JS contendo todas as funcoes aplicadas na validacao dos formularios usados nos POPUPS.
 
 # Dependências
 

@@ -1,28 +1,22 @@
-/***********************************/
-// Variaveis Globais POPUP
-// FUNÇÃO - Seleciona e retorna os elementos do popup
-function getPopupElements(popupElement) {
-  return {
-    firstInput: popupElement.querySelector(".popup__input:nth-child(2)"),
-    secondInput: popupElement.querySelector(".popup__input:nth-child(3)"),
-    closeButton: popupElement.querySelector(".popup__close-button"),
-    submitButton: popupElement.querySelector(".popup__submit-button"),
-  };
-}
+import {
+  setCustomErrorMessages,
+  renderSubmit,
+  enableValidation,
+} from "./validate.js";
 
-// Selecionando os popups
-const popupProfile = document.querySelector("#popupProfile");
-const popupCard = document.querySelector("#popupCard");
-
-// Obtendo os elementos dos popups
-const profileElements = getPopupElements(popupProfile);
-const cardElements = getPopupElements(popupCard);
-
+// Variáveis Globais
+export const popupProfile = document.querySelector("#popupProfile");
+export const popupCard = document.querySelector("#popupCard");
+const popupImage = document.querySelector(".popupImage");
 const overlay = document.querySelector(".overlay");
 
-// Variaveis Globais CARDS
 const addPlaceButton = document.querySelector(".profile__add-place-button");
 const cardGrid = document.querySelector(".photo-grid");
+const editProfileButton = document.querySelector(".profile__edit-button");
+const profileName = document.querySelector(".profile__name");
+const profileDescription = document.querySelector(".profile__description");
+
+// Vetor com cards iniciais
 const initialCards = [
   {
     name: "New York, NY",
@@ -50,16 +44,22 @@ const initialCards = [
   },
 ];
 
-//Variaveis globais PROFILE
-const editProfileButton = document.querySelector(".profile__edit-button");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
-
-//Variaveis globais POPUP IMAGEM
-const popupImage = document.querySelector(".popupImage");
-
 /***********************************/
-// POPUP //
+// Funções de Popup
+export function getPopupElements(popupElement) {
+  return {
+    firstInput: popupElement.querySelector("[name='firstInput']"),
+    secondInput: popupElement.querySelector("[name='secondInput']"),
+    closeButton: popupElement.querySelector(".popup__close-button"),
+    submitButton: popupElement.querySelector(".popup__submit-button"),
+    formElement: popupElement.querySelector(".popup__wrapper"),
+    formErrors: {
+      firstInputError: popupElement.querySelector(".firstInput-error"),
+      secondInputError: popupElement.querySelector(".secondInput-error"),
+    },
+  };
+}
+
 // FUNCTION - Ativa/Desativa Overlay e modifica classe popup
 function openOverlayAndPopup(popupElement) {
   overlay.classList.add("visible");
@@ -70,163 +70,143 @@ function closeOverlayAndPopup(popupElement) {
   popupElement.classList.remove("popup__opened");
 }
 
-//Renderizar submitButton
-function renderSubmit(firstInput, secondInput, submitButton) {
-  if (firstInput.value.trim() === "" || secondInput.value.trim() === "") {
-    submitButton.setAttribute("disabled", true);
-    submitButton.classList.add("disabled");
-  } else {
-    submitButton.removeAttribute("disabled");
-    submitButton.classList.remove("disabled");
+// FUNCTION - fecha popup com clique fora
+function handleClickOutside(event) {
+  const popups = [popupProfile, popupCard, popupImage];
+
+  // Verifica se o clique foi fora do popup (e não no botão de fechar, por exemplo)
+  popups.forEach((popupElement) => {
+    if (
+      popupElement.classList.contains("popup__opened") &&
+      !popupElement.contains(event.target)
+    ) {
+      closeOverlayAndPopup(popupElement);
+    }
+  });
+}
+
+// FUNCTION - fecha popup com ESC
+function handleEscapeKey(event) {
+  if (event.key === "Escape") {
+    const popups = [popupProfile, popupCard, popupImage]; // Array contendo todos os popups
+
+    popups.forEach((popupElement) => {
+      if (popupElement.classList.contains("popup__opened")) {
+        closeOverlayAndPopup(popupElement);
+      }
+    });
   }
 }
 
 /***********************************/
-// CARDS //
-// FUNCTION - Popular CARDS iniciais
-function addInitialCards() {
-  initialCards.forEach((card) => createCard(card.name, card.link));
-}
-
-// FUNCTION - Criar objeto CARD
-function createCard(nameValue, linkValue) {
+// Funções de Cartões
+function createCard(name, link) {
   const cardContainer = document.createElement("div");
   cardContainer.classList.add("photo-grid__item");
 
   const objectImageLink = document.createElement("img");
   objectImageLink.classList.add("photo-grid__item-img");
-  objectImageLink.src = linkValue;
-  objectImageLink.alt = nameValue;
+  objectImageLink.src = link;
+  objectImageLink.alt = name;
 
   const objectName = document.createElement("p");
   objectName.classList.add("photo-grid__item-name");
-  objectName.textContent = nameValue;
+  objectName.textContent = name;
 
   const likeButton = document.createElement("button");
   likeButton.classList.add("photo-grid__like-button");
 
   const deleteButton = document.createElement("img");
   deleteButton.classList.add("photo-grid__delete-button");
-  deleteButton.setAttribute("src", "../images/deleteButton.svg");
-  deleteButton.setAttribute("alt", "Delete");
-  deleteButton.setAttribute("id", "delete-button");
+  deleteButton.src = "../images/deleteButton.svg";
+  deleteButton.alt = "Delete";
 
   objectImageLink.addEventListener("click", openPopupImage);
   likeButton.addEventListener("click", () =>
     likeButton.classList.toggle("active")
   );
-  deleteButton.addEventListener("click", deleteCard);
+  deleteButton.addEventListener("click", removeCardElement);
 
   cardContainer.prepend(objectImageLink, objectName, likeButton, deleteButton);
   cardGrid.prepend(cardContainer);
-  deleteCard();
 }
 
-// FUNCTION - Adicionar novo CARD
+function addInitialCards() {
+  initialCards.forEach((card) => createCard(card.name, card.link));
+}
+
 function addNewCard(event) {
   event.preventDefault();
-  createCard(cardElements.firstInput.value, cardElements.secondInput.value);
+  const { firstInput, secondInput } = getPopupElements(popupCard);
+  createCard(firstInput.value, secondInput.value);
   closeOverlayAndPopup(popupCard);
 }
 
-// FUNCTION - aponta qual CARD deve ser removido
 function removeCardElement(event) {
-  event.target.parentElement.remove();
-}
-
-// FUNCTION - Deletar CARD
-function deleteCard() {
-  const deleteButton = document.querySelectorAll("#delete-button");
-  let allDeleteButtons = Array.from(deleteButton);
-  allDeleteButtons.forEach((button) =>
-    button.addEventListener("click", removeCardElement)
-  );
+  event.target.closest(".photo-grid__item").remove();
 }
 
 // FUNCTION - Abrir Popup CARD
 function openPopupCard() {
   openOverlayAndPopup(popupCard);
+  setCustomErrorMessages(popupCard);
+  enableValidation();
+
+  const { firstInput, secondInput, submitButton, closeButton } =
+    getPopupElements(popupCard);
+  renderSubmit([firstInput, secondInput], submitButton);
 
   // Valida os campos do popup de novo local
-  renderSubmit(
-    cardElements.firstInput,
-    cardElements.secondInput,
-    cardElements.submitButton
+  firstInput.addEventListener("input", () =>
+    renderSubmit([firstInput, secondInput], submitButton)
   );
-  cardElements.firstInput.addEventListener("input", () =>
-    renderSubmit(
-      cardElements.firstInput,
-      cardElements.secondInput,
-      cardElements.submitButton
-    )
-  );
-  cardElements.secondInput.addEventListener("input", () =>
-    renderSubmit(
-      cardElements.firstInput,
-      cardElements.secondInput,
-      cardElements.submitButton
-    )
+  secondInput.addEventListener("input", () =>
+    renderSubmit([firstInput, secondInput], submitButton)
   );
 
-  cardElements.closeButton.addEventListener("click", () =>
-    closeOverlayAndPopup(popupCard)
-  );
-  cardElements.submitButton.addEventListener("click", addNewCard);
+  closeButton.addEventListener("click", () => closeOverlayAndPopup(popupCard));
+  submitButton.addEventListener("click", addNewCard);
 }
 
-// FUNCTION - Valida existencia de CARDS
-function checkCardContainer() {}
-
 /***********************************/
-//PROFILE
-// FUNCTION - Abrir Popup USER
+// PROFILE
+// FUNCTION - Abrir popup PROFILE
 function openPopupUser() {
   openOverlayAndPopup(popupProfile);
 
-  // Validar campos do popup
-  renderSubmit(
-    profileElements.firstInput,
-    profileElements.secondInput,
-    profileElements.submitButton
+  const { firstInput, secondInput, submitButton, closeButton } =
+    getPopupElements(popupProfile);
+  renderSubmit([firstInput, secondInput], submitButton);
+
+  firstInput.addEventListener("input", () =>
+    renderSubmit([firstInput, secondInput], submitButton)
   );
-  profileElements.firstInput.addEventListener("input", () =>
-    renderSubmit(
-      profileElements.firstInput,
-      profileElements.secondInput,
-      profileElements.submitButton
-    )
-  );
-  profileElements.secondInput.addEventListener("input", () =>
-    renderSubmit(
-      profileElements.firstInput,
-      profileElements.secondInput,
-      profileElements.submitButton
-    )
+  secondInput.addEventListener("input", () =>
+    renderSubmit([firstInput, secondInput], submitButton)
   );
 
-  profileElements.closeButton.addEventListener("click", () =>
+  closeButton.addEventListener("click", () =>
     closeOverlayAndPopup(popupProfile)
   );
-  profileElements.submitButton.addEventListener("click", editUser);
+  submitButton.addEventListener("click", editUser);
+  enableValidation();
 }
 
-// FUNCTION - Editar Perfil do Usuario
+// FUNCTION - Editar PROFILE
 function editUser(event) {
   event.preventDefault();
-
-  profileName.textContent = profileElements.firstInput.value;
-  profileDescription.textContent = profileElements.secondInput.value;
-
+  const { firstInput, secondInput } = getPopupElements(popupProfile);
+  profileName.textContent = firstInput.value;
+  profileDescription.textContent = secondInput.value;
   closeOverlayAndPopup(popupProfile);
 }
 
 /***********************************/
 //EXPANDIR IMAGEM
-
 // FUNCTION - construir popup imagem grande
 function openPopupImage(event) {
   const imgElement = event.target;
-  openOverlayAndPopup(popupImage); // Verifique se esta função adiciona a classe 'popup__opened'
+  openOverlayAndPopup(popupImage);
 
   const imageCloseButton = popupImage.querySelector(
     ".popupImage__close-button"
@@ -243,13 +223,16 @@ function openPopupImage(event) {
   );
 }
 
-// FUNCTION - Inicializa funcoes
+/***********************************/
+// Função de Inicialização
 function init() {
   addInitialCards();
-  deleteCard();
   editProfileButton.addEventListener("click", openPopupUser);
   addPlaceButton.addEventListener("click", openPopupCard);
+
+  overlay.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
-// Inicia functions
+// Inicia funções
 init();
