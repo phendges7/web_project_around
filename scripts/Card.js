@@ -1,4 +1,4 @@
-class Card {
+export class Card {
   constructor(name, link, templateSelector) {
     this._name = name;
     this._link = link;
@@ -30,6 +30,7 @@ class Card {
 
   // Método privado para manipulação do clique na imagem
   _handleImageClick() {
+    debugger;
     openPopupImage({ target: this._element.querySelector(".card__image") });
   }
 

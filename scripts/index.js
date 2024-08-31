@@ -17,7 +17,7 @@ const popupImage = document.querySelector(".popupImage");
 const overlay = document.querySelector(".overlay");
 
 const addPlaceButton = document.querySelector(".profile__add-place-button");
-const cardGrid = document.querySelector(".photo-grid");
+const cardGrid = document.querySelector(".card-grid");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
@@ -49,50 +49,6 @@ const initialCards = [
     link: "https://images.unsplash.com/photo-1583176689170-990094dcd953?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
-
-/***********************************/
-// Funções de Popup
-export function getPopupElements(popupElement) {
-  return {
-    firstInput: popupElement.querySelector("[name='firstInput']"),
-    secondInput: popupElement.querySelector("[name='secondInput']"),
-    closeButton: popupElement.querySelector(".popup__close-button"),
-    submitButton: popupElement.querySelector(".popup__submit-button"),
-    formElement: popupElement.querySelector(".popup__wrapper"),
-    formErrors: {
-      firstInputError: popupElement.querySelector(".firstInput-error"),
-      secondInputError: popupElement.querySelector(".secondInput-error"),
-    },
-  };
-}
-
-// FUNCTION - fecha popup com clique fora
-function handleClickOutside(event) {
-  const popups = [popupProfile, popupCard, popupImage];
-
-  // Verifica se o clique foi fora do popup (e não no botão de fechar, por exemplo)
-  popups.forEach((popupElement) => {
-    if (
-      popupElement.classList.contains("popup__opened") &&
-      !popupElement.contains(event.target)
-    ) {
-      closeOverlayAndPopup(popupElement);
-    }
-  });
-}
-
-// FUNCTION - fecha popup com ESC
-function handleEscapeKey(event) {
-  if (event.key === "Escape") {
-    const popups = [popupProfile, popupCard, popupImage]; // Array contendo todos os popups
-
-    popups.forEach((popupElement) => {
-      if (popupElement.classList.contains("popup__opened")) {
-        closeOverlayAndPopup(popupElement);
-      }
-    });
-  }
-}
 
 /***********************************/
 // Funções de Cartões

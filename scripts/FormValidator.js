@@ -1,4 +1,5 @@
-import { getPopupElements, popupCard } from "./index.js";
+import { popupCard } from "./index.js";
+import { getPopupElements } from "./utils.js";
 
 /***********************************/
 // VALIDACAO
