@@ -32,6 +32,8 @@ const checkInputValidity = (formElement, inputElement) => {
 // FUNCTION - Verificar se tem INPUT invalido
 const hasInvalidInput = (inputList) =>
   inputList.some((inputElement) => !inputElement.validity.valid);
+
+// FUNCTION - Habilitar botao SUBMIT
 export const renderSubmit = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute("disabled", true);

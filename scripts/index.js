@@ -1,4 +1,14 @@
-import { renderSubmit, enableValidation } from "./validate.js";
+import {
+  openOverlayAndPopup,
+  closeOverlayAndPopup,
+  handleClickOutside,
+  handleEscapeKey,
+  getPopupElements,
+} from "./utils.js";
+import { enableValidation, renderSubmit } from "./FormValidator.js";
+import { Card } from "./Card.js";
+
+// Resto do código...
 
 // Variáveis Globais
 export const popupProfile = document.querySelector("#popupProfile");
@@ -56,16 +66,6 @@ export function getPopupElements(popupElement) {
   };
 }
 
-// FUNCTION - Ativa/Desativa Overlay e modifica classe popup
-function openOverlayAndPopup(popupElement) {
-  overlay.classList.add("visible");
-  popupElement.classList.add("popup__opened");
-}
-function closeOverlayAndPopup(popupElement) {
-  overlay.classList.remove("visible");
-  popupElement.classList.remove("popup__opened");
-}
-
 // FUNCTION - fecha popup com clique fora
 function handleClickOutside(event) {
   const popups = [popupProfile, popupCard, popupImage];
@@ -96,45 +96,24 @@ function handleEscapeKey(event) {
 
 /***********************************/
 // Funções de Cartões
-function createCard(name, link) {
-  const cardContainer = document.createElement("div");
-  cardContainer.classList.add("photo-grid__item");
-
-  const objectImageLink = document.createElement("img");
-  objectImageLink.classList.add("photo-grid__item-img");
-  objectImageLink.src = link;
-  objectImageLink.alt = name;
-
-  const objectName = document.createElement("p");
-  objectName.classList.add("photo-grid__item-name");
-  objectName.textContent = name;
-
-  const likeButton = document.createElement("button");
-  likeButton.classList.add("photo-grid__like-button");
-
-  const deleteButton = document.createElement("img");
-  deleteButton.classList.add("photo-grid__delete-button");
-  deleteButton.src = "../images/deleteButton.svg";
-  deleteButton.alt = "Delete";
-
-  objectImageLink.addEventListener("click", openPopupImage);
-  likeButton.addEventListener("click", () =>
-    likeButton.classList.toggle("active")
-  );
-  deleteButton.addEventListener("click", removeCardElement);
-
-  cardContainer.prepend(objectImageLink, objectName, likeButton, deleteButton);
-  cardGrid.prepend(cardContainer);
-}
-
 function addInitialCards() {
-  initialCards.forEach((card) => createCard(card.name, card.link));
+  initialCards.forEach((card) => {
+    const cardInstance = new Card(card.name, card.link, "#cardTemplate");
+    const cardElement = cardInstance.generateCard();
+    cardGrid.prepend(cardElement);
+  });
 }
 
 function addNewCard(event) {
   event.preventDefault();
   const { firstInput, secondInput } = getPopupElements(popupCard);
-  createCard(firstInput.value, secondInput.value);
+  const cardInstance = new Card(
+    firstInput.value,
+    secondInput.value,
+    "#cardTemplate"
+  );
+  const cardElement = cardInstance.generateCard();
+  cardGrid.prepend(cardElement);
   closeOverlayAndPopup(popupCard);
 }
 
