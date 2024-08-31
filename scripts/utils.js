@@ -1,6 +1,6 @@
 // Seletores comuns para todos os popups e a overlay
 const overlay = document.querySelector(".overlay");
-const popups = Array.from(document.querySelectorAll(".popup"));
+const popups = Array.from(document.querySelectorAll("[class*='popup']"));
 
 // Função para selecionar elementos dentro de um popup
 export function getPopupElements(popupElement) {

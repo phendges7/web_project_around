@@ -8,8 +8,6 @@ import {
 import { enableValidation, renderSubmit } from "./FormValidator.js";
 import { Card } from "./Card.js";
 
-// Resto do código...
-
 // Variáveis Globais
 export const popupProfile = document.querySelector("#popupProfile");
 export const popupCard = document.querySelector("#popupCard");
@@ -79,6 +77,7 @@ function removeCardElement(event) {
 
 // FUNCTION - Abrir Popup CARD
 function openPopupCard() {
+  debugger;
   openOverlayAndPopup(popupCard);
   enableValidation();
 
@@ -86,7 +85,6 @@ function openPopupCard() {
     getPopupElements(popupCard);
   renderSubmit([firstInput, secondInput], submitButton);
 
-  // Valida os campos do popup de novo local
   firstInput.addEventListener("input", () =>
     renderSubmit([firstInput, secondInput], submitButton)
   );
@@ -96,6 +94,10 @@ function openPopupCard() {
 
   closeButton.addEventListener("click", () => closeOverlayAndPopup(popupCard));
   submitButton.addEventListener("click", addNewCard);
+
+  // Adicionar os event listeners
+  overlay.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 /***********************************/
@@ -134,7 +136,7 @@ function editUser(event) {
 /***********************************/
 //EXPANDIR IMAGEM
 // FUNCTION - construir popup imagem grande
-function openPopupImage(event) {
+export function openPopupImage(event) {
   const imgElement = event.target;
   openOverlayAndPopup(popupImage);
 
@@ -151,6 +153,8 @@ function openPopupImage(event) {
   imageCloseButton.addEventListener("click", () =>
     closeOverlayAndPopup(popupImage)
   );
+  overlay.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 /***********************************/

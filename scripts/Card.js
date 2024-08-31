@@ -1,3 +1,5 @@
+import { openPopupImage } from "./index.js";
+
 export class Card {
   constructor(name, link, templateSelector) {
     this._name = name;
@@ -30,7 +32,6 @@ export class Card {
 
   // Método privado para manipulação do clique na imagem
   _handleImageClick() {
-    debugger;
     openPopupImage({ target: this._element.querySelector(".card__image") });
   }
 
