@@ -1,4 +1,5 @@
-import { getPopupElements, popupCard } from "./index.js";
+import { popupCard } from "./index.js";
+import { getPopupElements } from "./utils.js";
 
 /***********************************/
 // VALIDACAO
@@ -32,6 +33,8 @@ const checkInputValidity = (formElement, inputElement) => {
 // FUNCTION - Verificar se tem INPUT invalido
 const hasInvalidInput = (inputList) =>
   inputList.some((inputElement) => !inputElement.validity.valid);
+
+// FUNCTION - Habilitar botao SUBMIT
 export const renderSubmit = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute("disabled", true);

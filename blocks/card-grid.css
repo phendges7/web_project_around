@@ -1,4 +1,4 @@
-.photo-grid {
+.card-grid {
   margin: 50px auto 0;
   display: grid;
   grid-template-columns: repeat(3, auto);
@@ -8,7 +8,7 @@
   min-height: 100vh;
 }
 
-.photo-grid__item {
+.card {
   position: relative;
   margin: 0;
   display: grid;
@@ -22,7 +22,7 @@
   overflow: hidden;
 }
 
-.photo-grid__item-img {
+.card__image {
   grid-area: photo;
   width: 282px;
   height: 282px;
@@ -30,7 +30,7 @@
   object-fit: cover;
 }
 
-.photo-grid__item-name {
+.card__name {
   grid-area: name;
   margin-left: 21px;
   text-wrap: nowrap;
@@ -45,7 +45,7 @@
   overflow: hidden;
 }
 
-.photo-grid__like-button {
+.card__like-button {
   grid-area: like;
   margin-right: 18px;
   border: none;
@@ -57,15 +57,15 @@
   justify-self: flex-end;
 }
 
-.photo-grid__like-button:hover {
+.card__like-button:hover {
   opacity: 0.5;
 }
 
-.photo-grid__like-button.active {
+.card__like-button.active {
   background: url(../images/likeButtonActive.svg) center no-repeat;
 }
 
-.photo-grid__delete-button {
+.card__delete-button {
   position: absolute;
   top: 18px;
   right: 15px;
@@ -83,7 +83,7 @@
     grid-template-rows: repeat(3, 1fr);
   }
 
-  .photo-grid__like-button:hover {
+  .card__like-button:hover {
     opacity: unset;
   }
 }

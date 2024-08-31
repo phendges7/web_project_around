@@ -1,4 +1,12 @@
-import { renderSubmit, enableValidation } from "./validate.js";
+import {
+  openOverlayAndPopup,
+  closeOverlayAndPopup,
+  handleClickOutside,
+  handleEscapeKey,
+  getPopupElements,
+} from "./utils.js";
+import { enableValidation, renderSubmit } from "./FormValidator.js";
+import { Card } from "./Card.js";
 
 // Variáveis Globais
 export const popupProfile = document.querySelector("#popupProfile");
@@ -7,7 +15,7 @@ const popupImage = document.querySelector(".popupImage");
 const overlay = document.querySelector(".overlay");
 
 const addPlaceButton = document.querySelector(".profile__add-place-button");
-const cardGrid = document.querySelector(".photo-grid");
+const cardGrid = document.querySelector(".card-grid");
 const editProfileButton = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
@@ -41,100 +49,25 @@ const initialCards = [
 ];
 
 /***********************************/
-// Funções de Popup
-export function getPopupElements(popupElement) {
-  return {
-    firstInput: popupElement.querySelector("[name='firstInput']"),
-    secondInput: popupElement.querySelector("[name='secondInput']"),
-    closeButton: popupElement.querySelector(".popup__close-button"),
-    submitButton: popupElement.querySelector(".popup__submit-button"),
-    formElement: popupElement.querySelector(".popup__wrapper"),
-    formErrors: {
-      firstInputError: popupElement.querySelector(".firstInput-error"),
-      secondInputError: popupElement.querySelector(".secondInput-error"),
-    },
-  };
-}
-
-// FUNCTION - Ativa/Desativa Overlay e modifica classe popup
-function openOverlayAndPopup(popupElement) {
-  overlay.classList.add("visible");
-  popupElement.classList.add("popup__opened");
-}
-function closeOverlayAndPopup(popupElement) {
-  overlay.classList.remove("visible");
-  popupElement.classList.remove("popup__opened");
-}
-
-// FUNCTION - fecha popup com clique fora
-function handleClickOutside(event) {
-  const popups = [popupProfile, popupCard, popupImage];
-
-  // Verifica se o clique foi fora do popup (e não no botão de fechar, por exemplo)
-  popups.forEach((popupElement) => {
-    if (
-      popupElement.classList.contains("popup__opened") &&
-      !popupElement.contains(event.target)
-    ) {
-      closeOverlayAndPopup(popupElement);
-    }
-  });
-}
-
-// FUNCTION - fecha popup com ESC
-function handleEscapeKey(event) {
-  if (event.key === "Escape") {
-    const popups = [popupProfile, popupCard, popupImage]; // Array contendo todos os popups
-
-    popups.forEach((popupElement) => {
-      if (popupElement.classList.contains("popup__opened")) {
-        closeOverlayAndPopup(popupElement);
-      }
-    });
-  }
-}
-
-/***********************************/
 // Funções de Cartões
-function createCard(name, link) {
-  const cardContainer = document.createElement("div");
-  cardContainer.classList.add("photo-grid__item");
-
-  const objectImageLink = document.createElement("img");
-  objectImageLink.classList.add("photo-grid__item-img");
-  objectImageLink.src = link;
-  objectImageLink.alt = name;
-
-  const objectName = document.createElement("p");
-  objectName.classList.add("photo-grid__item-name");
-  objectName.textContent = name;
-
-  const likeButton = document.createElement("button");
-  likeButton.classList.add("photo-grid__like-button");
-
-  const deleteButton = document.createElement("img");
-  deleteButton.classList.add("photo-grid__delete-button");
-  deleteButton.src = "../images/deleteButton.svg";
-  deleteButton.alt = "Delete";
-
-  objectImageLink.addEventListener("click", openPopupImage);
-  likeButton.addEventListener("click", () =>
-    likeButton.classList.toggle("active")
-  );
-  deleteButton.addEventListener("click", removeCardElement);
-
-  cardContainer.prepend(objectImageLink, objectName, likeButton, deleteButton);
-  cardGrid.prepend(cardContainer);
-}
-
 function addInitialCards() {
-  initialCards.forEach((card) => createCard(card.name, card.link));
+  initialCards.forEach((card) => {
+    const cardInstance = new Card(card.name, card.link, "#cardTemplate");
+    const cardElement = cardInstance.generateCard();
+    cardGrid.prepend(cardElement);
+  });
 }
 
 function addNewCard(event) {
   event.preventDefault();
   const { firstInput, secondInput } = getPopupElements(popupCard);
-  createCard(firstInput.value, secondInput.value);
+  const cardInstance = new Card(
+    firstInput.value,
+    secondInput.value,
+    "#cardTemplate"
+  );
+  const cardElement = cardInstance.generateCard();
+  cardGrid.prepend(cardElement);
   closeOverlayAndPopup(popupCard);
 }
 
@@ -144,6 +77,7 @@ function removeCardElement(event) {
 
 // FUNCTION - Abrir Popup CARD
 function openPopupCard() {
+  debugger;
   openOverlayAndPopup(popupCard);
   enableValidation();
 
@@ -151,7 +85,6 @@ function openPopupCard() {
     getPopupElements(popupCard);
   renderSubmit([firstInput, secondInput], submitButton);
 
-  // Valida os campos do popup de novo local
   firstInput.addEventListener("input", () =>
     renderSubmit([firstInput, secondInput], submitButton)
   );
@@ -161,6 +94,10 @@ function openPopupCard() {
 
   closeButton.addEventListener("click", () => closeOverlayAndPopup(popupCard));
   submitButton.addEventListener("click", addNewCard);
+
+  // Adicionar os event listeners
+  overlay.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 /***********************************/
@@ -199,7 +136,7 @@ function editUser(event) {
 /***********************************/
 //EXPANDIR IMAGEM
 // FUNCTION - construir popup imagem grande
-function openPopupImage(event) {
+export function openPopupImage(event) {
   const imgElement = event.target;
   openOverlayAndPopup(popupImage);
 
@@ -216,6 +153,8 @@ function openPopupImage(event) {
   imageCloseButton.addEventListener("click", () =>
     closeOverlayAndPopup(popupImage)
   );
+  overlay.addEventListener("click", handleClickOutside);
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 /***********************************/
