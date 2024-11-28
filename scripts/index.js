@@ -5,8 +5,8 @@ import {
   handleEscapeKey,
   getPopupElements,
 } from "./utils.js";
-import { enableValidation, renderSubmit } from "./FormValidator.js";
-import { Card } from "./Card.js";
+import { enableValidation, renderSubmit } from "../components/FormValidator.js";
+import { Card } from "../components/Card.js";
 
 // Variáveis Globais
 export const popupProfile = document.querySelector("#popupProfile");
