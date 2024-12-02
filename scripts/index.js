@@ -1,24 +1,9 @@
-import {
-  openOverlayAndPopup,
-  closeOverlayAndPopup,
-  handleClickOutside,
-  handleEscapeKey,
-  getPopupElements,
-} from "./utils.js";
-import { enableValidation, renderSubmit } from "../components/FormValidator.js";
+import { Section } from "../components/Section.js";
 import { Card } from "../components/Card.js";
-
-// Variáveis Globais
-export const popupProfile = document.querySelector("#popupProfile");
-export const popupCard = document.querySelector("#popupCard");
-const popupImage = document.querySelector(".popupImage");
-const overlay = document.querySelector(".overlay");
-
-const addPlaceButton = document.querySelector(".profile__add-place-button");
-const cardGrid = document.querySelector(".card-grid");
-const editProfileButton = document.querySelector(".profile__edit-button");
-const profileName = document.querySelector(".profile__name");
-const profileDescription = document.querySelector(".profile__description");
+import { Popup } from "../components/Popup.js";
+import { PopupWithForm } from "../components/PopupWithForm.js";
+import { popupImage } from "../components/PopupWithImage.js";
+import { enableValidation, renderSubmit } from "../components/FormValidator.js";
 
 // Vetor com cards iniciais
 const initialCards = [
@@ -49,89 +34,26 @@ const initialCards = [
 ];
 
 /***********************************/
-// Funções de Cartões
-function addInitialCards() {
-  initialCards.forEach((card) => {
-    const cardInstance = new Card(card.name, card.link, "#cardTemplate");
-    const cardElement = cardInstance.generateCard();
-    cardGrid.prepend(cardElement);
-  });
-}
+// Popular cartoes iniciais
+const renderCard = (data) => {
+  const card = new Card(data.name, data.link, "#cardTemplate");
+  const cardElement = card.generateCard();
+  cardSection.addItem(cardElement);
+};
 
-function addNewCard(event) {
-  event.preventDefault();
-  const { firstInput, secondInput } = getPopupElements(popupCard);
-  const cardInstance = new Card(
-    firstInput.value,
-    secondInput.value,
-    "#cardTemplate"
-  );
-  const cardElement = cardInstance.generateCard();
-  cardGrid.prepend(cardElement);
-  closeOverlayAndPopup(popupCard);
-}
-
-function removeCardElement(event) {
-  event.target.closest(".photo-grid__item").remove();
-}
-
-// FUNCTION - Abrir Popup CARD
-function openPopupCard() {
-  debugger;
-  openOverlayAndPopup(popupCard);
-  enableValidation();
-
-  const { firstInput, secondInput, submitButton, closeButton } =
-    getPopupElements(popupCard);
-  renderSubmit([firstInput, secondInput], submitButton);
-
-  firstInput.addEventListener("input", () =>
-    renderSubmit([firstInput, secondInput], submitButton)
-  );
-  secondInput.addEventListener("input", () =>
-    renderSubmit([firstInput, secondInput], submitButton)
-  );
-
-  closeButton.addEventListener("click", () => closeOverlayAndPopup(popupCard));
-  submitButton.addEventListener("click", addNewCard);
-
-  // Adicionar os event listeners
-  overlay.addEventListener("click", handleClickOutside);
-  document.addEventListener("keydown", handleEscapeKey);
-}
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: renderCard,
+  },
+  ".card-grid"
+);
 
 /***********************************/
 // PROFILE
-// FUNCTION - Abrir popup PROFILE
-function openPopupUser() {
-  openOverlayAndPopup(popupProfile);
-
-  const { firstInput, secondInput, submitButton, closeButton } =
-    getPopupElements(popupProfile);
-  renderSubmit([firstInput, secondInput], submitButton);
-
-  firstInput.addEventListener("input", () =>
-    renderSubmit([firstInput, secondInput], submitButton)
-  );
-  secondInput.addEventListener("input", () =>
-    renderSubmit([firstInput, secondInput], submitButton)
-  );
-
-  closeButton.addEventListener("click", () =>
-    closeOverlayAndPopup(popupProfile)
-  );
-  submitButton.addEventListener("click", editUser);
-  enableValidation();
-}
+const profilePopup = new PopupWithForm();
 
 // FUNCTION - Editar PROFILE
-function editUser(event) {
-  event.preventDefault();
-  const { firstInput, secondInput } = getPopupElements(popupProfile);
-  profileName.textContent = firstInput.value;
-  profileDescription.textContent = secondInput.value;
-  closeOverlayAndPopup(popupProfile);
-}
 
 /***********************************/
 //EXPANDIR IMAGEM
@@ -157,10 +79,12 @@ export function openPopupImage(event) {
   document.addEventListener("keydown", handleEscapeKey);
 }
 
-/***********************************/
+cardSection.renderItems();
+
+/**********************************
 // Função de Inicialização
 function init() {
-  addInitialCards();
+ addInitialCards();
   editProfileButton.addEventListener("click", openPopupUser);
   addPlaceButton.addEventListener("click", openPopupCard);
 
@@ -169,4 +93,4 @@ function init() {
 }
 
 // Inicia funções
-init();
+init();*/
