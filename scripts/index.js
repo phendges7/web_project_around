@@ -2,7 +2,8 @@ import { Section } from "../components/Section.js";
 import { Card } from "../components/Card.js";
 import { Popup } from "../components/Popup.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
-import { popupImage } from "../components/PopupWithImage.js";
+import { PopupWithImage } from "../components/PopupWithImage.js";
+import { UserInfo } from "../components/UserInfo.js";
 import { enableValidation, renderSubmit } from "../components/FormValidator.js";
 
 // Vetor com cards iniciais
@@ -34,13 +35,34 @@ const initialCards = [
 ];
 
 /***********************************/
-// Popular cartoes iniciais
+// POPUPS
+// Instancia popup para editar PERFIL
+const popupProfileForm = new PopupWithForm("#popupProfile");
+popupProfileForm.setEventListeners();
+
+// Instancia popup para ADICIONAR CARD
+const popupCardForm = new PopupWithForm("#popupCard");
+popupCardForm.setEventListeners();
+
+// Instancia popup de IMAGEM EXPANDIDA
+const imagePopup = new PopupWithImage(".popupImage");
+imagePopup.setEventListeners();
+
+/***********************************/
+//CARDS
+// Manipula clique no card
+const handleCardClick = (name, link) => {
+  imagePopup.open(link, name);
+};
+
+// Renderiza card
 const renderCard = (data) => {
-  const card = new Card(data.name, data.link, "#cardTemplate");
+  const card = new Card(data.name, data.link, "#cardTemplate", handleCardClick);
   const cardElement = card.generateCard();
   cardSection.addItem(cardElement);
 };
 
+// Cria nova secao - secao de cards
 const cardSection = new Section(
   {
     items: initialCards,
@@ -49,48 +71,15 @@ const cardSection = new Section(
   ".card-grid"
 );
 
-/***********************************/
-// PROFILE
-const profilePopup = new PopupWithForm();
-
-// FUNCTION - Editar PROFILE
-
-/***********************************/
-//EXPANDIR IMAGEM
-// FUNCTION - construir popup imagem grande
-export function openPopupImage(event) {
-  const imgElement = event.target;
-  openOverlayAndPopup(popupImage);
-
-  const imageCloseButton = popupImage.querySelector(
-    ".popupImage__close-button"
-  );
-  const imageExpanded = popupImage.querySelector(".popupImage__big");
-  const imageTitle = popupImage.querySelector(".popupImage__title");
-
-  imageExpanded.src = imgElement.src;
-  imageExpanded.alt = imgElement.alt;
-  imageTitle.textContent = imgElement.alt;
-
-  imageCloseButton.addEventListener("click", () =>
-    closeOverlayAndPopup(popupImage)
-  );
-  overlay.addEventListener("click", handleClickOutside);
-  document.addEventListener("keydown", handleEscapeKey);
-}
-
+// Renderiza secao
 cardSection.renderItems();
 
-/**********************************
-// Função de Inicialização
-function init() {
- addInitialCards();
-  editProfileButton.addEventListener("click", openPopupUser);
-  addPlaceButton.addEventListener("click", openPopupCard);
+/***********************************/
+// PERFIL
+// Instancia UserInfo
+const userInfo = new UserInfo(".profile__name", ".profile__description");
 
-  overlay.addEventListener("click", handleClickOutside);
-  document.addEventListener("keydown", handleEscapeKey);
-}
+const editProfileButton = document.querySelector(".profile__edit-button");
+editProfileButton.addEventListener("click", () => this.open());
 
-// Inicia funções
-init();*/
+/**********************************/

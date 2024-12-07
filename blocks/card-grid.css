@@ -30,6 +30,11 @@
   object-fit: cover;
 }
 
+.card__image:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
 .card__name {
   grid-area: name;
   margin-left: 21px;
