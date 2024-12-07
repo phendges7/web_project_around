@@ -1,25 +1,27 @@
 export class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
-    console.log(popupSelector);
-
     this._overlay = document.querySelector(".overlay");
+    this._isOpen = false;
   }
 
   // Função para abrir popup e exibir overlay
   open() {
-    this._overlay.classList.add("visible");
-    this._popup.classList.add("popup__opened");
-    document.addEventListener("keydown", this._handleEscClose);
-    this._overlay.addEventListener("click", this._handleOverlayClick);
+    if (!this._isOpen) {
+      this._overlay.classList.add("visible");
+      this._popup.classList.add("popup__opened");
+      this._isOpen = true;
+      document.addEventListener("keydown", this._handleEscClose.bind(this));
+    }
   }
 
   // Função para fechar popup e esconder overlay
   close() {
-    this._overlay.classList.remove("visible");
-    this._popup.classList.remove("popup__opened");
-    document.removeEventListener("keydown", this._handleEscClose);
-    this._overlay.removeEventListener("click", this._handleOverlayClick);
+    if (this._isOpen) {
+      this._overlay.classList.remove("visible");
+      this._popup.classList.remove("popup__opened");
+      this._isOpen = false;
+    }
   }
 
   // Ouvintes
@@ -37,7 +39,6 @@ export class Popup {
     });
   }
 
-  // Manipuladores
   // Pressionar da tecla ESC
   _handleEscClose(event) {
     if (event.key === "Escape") {

@@ -1,10 +1,13 @@
 import { Section } from "../components/Section.js";
 import { Card } from "../components/Card.js";
-import { Popup } from "../components/Popup.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { enableValidation, renderSubmit } from "../components/FormValidator.js";
+import {
+  createCard,
+  handleProfileFormSubmit,
+  handleCardFormSubmit,
+} from "./utils.js";
 
 // Vetor com cards iniciais
 const initialCards = [
@@ -35,30 +38,37 @@ const initialCards = [
 ];
 
 /***********************************/
-// POPUPS
 // Instancia popup para editar PERFIL
-const popupProfileForm = new PopupWithForm("#popupProfile");
+const popupProfileForm = new PopupWithForm(
+  "#popupProfile",
+  handleProfileFormSubmit
+);
 popupProfileForm.setEventListeners();
 
 // Instancia popup para ADICIONAR CARD
-const popupCardForm = new PopupWithForm("#popupCard");
+const popupCardForm = new PopupWithForm("#popupCard", handleCardFormSubmit);
 popupCardForm.setEventListeners();
 
 // Instancia popup de IMAGEM EXPANDIDA
-const imagePopup = new PopupWithImage(".popupImage");
-imagePopup.setEventListeners();
+const popupImage = new PopupWithImage(".popupImage");
+popupImage.setEventListeners();
+
+// Controle de popup aberto atualmente
+export let currentPopup = null;
 
 /***********************************/
 //CARDS
-// Manipula clique no card
-const handleCardClick = (name, link) => {
-  imagePopup.open(link, name);
+// Manipula clique no cards
+export const handleCardClick = (name, link) => {
+  popupImage.open(link, name);
+  currentPopup = popupImage;
+  console.log(currentPopup);
 };
 
 // Renderiza card
-const renderCard = (data) => {
-  const card = new Card(data.name, data.link, "#cardTemplate", handleCardClick);
-  const cardElement = card.generateCard();
+export const renderCard = (data) => {
+  debugger;
+  const cardElement = createCard(data, handleCardClick);
   cardSection.addItem(cardElement);
 };
 
@@ -75,11 +85,22 @@ const cardSection = new Section(
 cardSection.renderItems();
 
 /***********************************/
-// PERFIL
+// POPUPS
 // Instancia UserInfo
 const userInfo = new UserInfo(".profile__name", ".profile__description");
 
 const editProfileButton = document.querySelector(".profile__edit-button");
-editProfileButton.addEventListener("click", () => this.open());
+editProfileButton.addEventListener("click", () => {
+  popupProfileForm.open();
+  currentPopup = popupProfileForm;
+  console.log(currentPopup);
+});
+
+const addCardButton = document.querySelector(".profile__add-place-button");
+addCardButton.addEventListener("click", () => {
+  popupCardForm.open();
+  currentPopup = popupCardForm;
+  console.log(currentPopup);
+});
 
 /**********************************/

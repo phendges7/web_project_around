@@ -83,7 +83,7 @@
 /*------- Consulta midia MEDIA -------*/
 
 @media screen and (max-width: 1024px) {
-  .photo-grid {
+  .card-grid {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 1fr);
   }
@@ -96,7 +96,7 @@
 /*------- Consulta midia PEQUENA -------*/
 
 @media screen and (max-width: 650px) {
-  .photo-grid {
+  .card-grid {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(6, 1fr);
     margin: 36px auto 0;
