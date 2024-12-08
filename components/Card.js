@@ -44,7 +44,6 @@ export class Card {
 
   // retorna elemento card completo
   generateCard() {
-    console.log("Gerando card para:", this._name, this._link);
     this._element = this._getTemplate();
 
     const image = this._element.querySelector(".card__image");
@@ -56,7 +55,6 @@ export class Card {
 
     this._setEventListeners();
 
-    console.log("Card criado com sucesso:", this._element);
     return this._element;
   }
 }

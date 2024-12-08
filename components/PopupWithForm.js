@@ -1,7 +1,7 @@
 import { Popup } from "./Popup.js";
 import { UserInfo } from "./UserInfo.js";
 import { Card } from "./Card.js";
-import { currentPopup } from "../scripts/index.js";
+import { enableValidation } from "./FormValidator.js";
 import {
   handleProfileFormSubmit,
   handleCardFormSubmit,
@@ -15,6 +15,8 @@ export class PopupWithForm extends Popup {
       this._form.querySelectorAll(".popup__input")
     );
     this._handleSubmit = handleSubmit;
+
+    enableValidation();
   }
 
   //Metodo para pegar e atribuir valores dos campos do form

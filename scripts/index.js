@@ -53,16 +53,11 @@ popupCardForm.setEventListeners();
 const popupImage = new PopupWithImage(".popupImage");
 popupImage.setEventListeners();
 
-// Controle de popup aberto atualmente
-export let currentPopup = null;
-
 /***********************************/
 //CARDS
 // Manipula clique no cards
 export const handleCardClick = (name, link) => {
   popupImage.open(link, name);
-  currentPopup = popupImage;
-  console.log(currentPopup);
 };
 
 // Renderiza card
@@ -91,15 +86,11 @@ const userInfo = new UserInfo(".profile__name", ".profile__description");
 const editProfileButton = document.querySelector(".profile__edit-button");
 editProfileButton.addEventListener("click", () => {
   popupProfileForm.open();
-  currentPopup = popupProfileForm;
-  console.log(currentPopup);
 });
 
 const addCardButton = document.querySelector(".profile__add-place-button");
 addCardButton.addEventListener("click", () => {
   popupCardForm.open();
-  currentPopup = popupCardForm;
-  console.log(currentPopup);
 });
 
 /**********************************/
