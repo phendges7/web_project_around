@@ -67,7 +67,6 @@ export const handleCardClick = (name, link) => {
 
 // Renderiza card
 export const renderCard = (data) => {
-  debugger;
   const cardElement = createCard(data, handleCardClick);
   cardSection.addItem(cardElement);
 };
