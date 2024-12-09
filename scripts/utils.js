@@ -27,4 +27,6 @@ export function handleCardFormSubmit(event, formData) {
   const cardLink = formData.secondInput || "Imagem não definida";
 
   renderCard({ name: cardName, link: cardLink });
+
+  event.target.reset();
 }
