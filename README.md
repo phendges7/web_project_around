@@ -28,9 +28,11 @@
 
 # Descrição dos Arquivos
 
-## \* index.html: Contém a estrutura HTML do site.
+### \* index.html: Contém a estrutura HTML do site.
 
-## \* index.css: Contém os estilos específicos de cada bloco da página inicial.
+## CSS
+
+### \* index.css: Contém os estilos específicos de cada bloco da página inicial.
 
 ### \* normalize.css: Um arquivo CSS para normalizar estilos entre diferentes navegadores.
 
@@ -50,9 +52,23 @@
 
 ### \* footer.css: Um arquivo CSS para estilos do bloco RODAPE e dos elementos filhos.
 
-### \* index.js: Um arquivo JS contendo todas as funcoes aplicadas na WebApp na parte do POPUP.
+## JS
 
-### \* validate.js: Um arquivo JS contendo todas as funcoes aplicadas na validacao dos formularios usados nos POPUPS.
+### \* index.js: Um arquivo JS contendo todas as instancias de objetos e ouvintes de eventos.
+
+### \* Card.js: Um arquivo JS contendo toda a estrutura do elemento CARD com propriedades e metodos
+
+### \* FormValidator.js: Um arquivo JS contendo todas as funcoes aplicadas na validacao dos formularios usados nos POPUPS.
+
+### \* Popup.js: Um arquivo JS contendo toda a estrutura do elemento POPUP com propriedades e metodos
+
+### \* PopupWithForm.js: Um arquivo JS contendo toda a estrutura do elemento Popup com formularios - classe que herda atributos e modifica metodos de sua classe-pai
+
+### \* PopupWithImage.js: Um arquivo JS contendo toda a estrutura do elemento Popup com imagem - classe que herda atributos e modifica metodos de sua classe-pai
+
+### \* Section.js: Um arquivo JS contendo toda a estrutura do elemento SECTION com propriedades e metodos
+
+### \* UserInfo.js: Um arquivo JS contendo toda a estrutura do elemento USERINFO com propriedades e metodos de GET and SET
 
 # Dependências
 

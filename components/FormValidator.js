@@ -1,8 +1,3 @@
-import { popupCard } from "./index.js";
-import { getPopupElements } from "./utils.js";
-
-/***********************************/
-// VALIDACAO
 // FUNCTION - Mostrar mensagem de erro
 export const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.name}-error`);

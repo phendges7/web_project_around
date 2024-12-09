@@ -1,53 +1,30 @@
-// Seletores comuns para todos os popups e a overlay
-const overlay = document.querySelector(".overlay");
-const popups = Array.from(document.querySelectorAll("[class*='popup']"));
+import { Card } from "../components/Card.js";
+import { renderCard } from "./index.js";
+import { UserInfo } from "../components/UserInfo.js";
 
-// Função para selecionar elementos dentro de um popup
-export function getPopupElements(popupElement) {
-  return {
-    firstInput: popupElement.querySelector("[name='firstInput']"),
-    secondInput: popupElement.querySelector("[name='secondInput']"),
-    closeButton: popupElement.querySelector(".popup__close-button"),
-    submitButton: popupElement.querySelector(".popup__submit-button"),
-    formElement: popupElement.querySelector(".popup__wrapper"),
-    formErrors: {
-      firstInputError: popupElement.querySelector(".firstInput-error"),
-      secondInputError: popupElement.querySelector(".secondInput-error"),
-    },
-  };
+// FUNCTION - CRIAR CARD
+export function createCard(data, handleCardClick) {
+  const card = new Card(data.name, data.link, "#cardTemplate", handleCardClick);
+  const cardElement = card.generateCard();
+
+  return cardElement;
 }
 
-// Função para abrir popup e exibir overlay
-export function openOverlayAndPopup(popupElement) {
-  overlay.classList.add("visible");
-  popupElement.classList.add("popup__opened");
-}
+// FUNCTION - MANIPULAR SUBMIT DE PERFIL
 
-// Função para fechar popup e esconder overlay
-export function closeOverlayAndPopup(popupElement) {
-  overlay.classList.remove("visible");
-  popupElement.classList.remove("popup__opened");
-}
+const userInfo = new UserInfo(".profile__name", ".profile__description");
 
-// Manipulador de clique fora do popup
-export function handleClickOutside(event) {
-  popups.forEach((popupElement) => {
-    if (
-      popupElement.classList.contains("popup__opened") &&
-      !popupElement.contains(event.target)
-    ) {
-      closeOverlayAndPopup(popupElement);
-    }
+export function handleProfileFormSubmit(event, formData) {
+  userInfo.setUserInfo({
+    name: formData.firstInput,
+    description: formData.secondInput,
   });
 }
 
-// Manipulador de pressionamento da tecla ESC
-export function handleEscapeKey(event) {
-  if (event.key === "Escape") {
-    popups.forEach((popupElement) => {
-      if (popupElement.classList.contains("popup__opened")) {
-        closeOverlayAndPopup(popupElement);
-      }
-    });
-  }
+//FUNCTION - MANIPULAR SUBMIT DE CARD
+export function handleCardFormSubmit(event, formData) {
+  const cardName = formData.firstInput || "Título não definido";
+  const cardLink = formData.secondInput || "Imagem não definida";
+
+  renderCard({ name: cardName, link: cardLink });
 }
