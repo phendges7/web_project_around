@@ -6,18 +6,21 @@ export class UserInfo {
 
   getUserInfo() {
     return {
-      name: this._nameElement.textContext,
-      description: this._descriptionElement.textContext,
+      name: this._nameElement.textContent,
+      description: this._descriptionElement.textContent,
     };
   }
 
   setUserInfo({ name, description }) {
+    debugger;
+    console.log(this._descriptionElement);
+
     if (name) {
       this._nameElement.textContent = name;
     }
 
     if (description) {
-      this._descriptionElement.textContext = description;
+      this._descriptionElement.textContent = description;
     }
   }
 }

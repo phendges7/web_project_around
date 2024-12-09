@@ -1,8 +1,6 @@
 import { Section } from "../components/Section.js";
-import { Card } from "../components/Card.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
-import { UserInfo } from "../components/UserInfo.js";
 import {
   createCard,
   handleProfileFormSubmit,
@@ -81,7 +79,6 @@ cardSection.renderItems();
 /***********************************/
 // POPUPS
 // Instancia UserInfo
-const userInfo = new UserInfo(".profile__name", ".profile__description");
 
 const editProfileButton = document.querySelector(".profile__edit-button");
 editProfileButton.addEventListener("click", () => {

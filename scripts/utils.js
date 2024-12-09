@@ -1,25 +1,24 @@
 import { Card } from "../components/Card.js";
-import { handleCardClick, renderCard } from "./index.js";
+import { renderCard } from "./index.js";
+import { UserInfo } from "../components/UserInfo.js";
 
 // FUNCTION - CRIAR CARD
 export function createCard(data, handleCardClick) {
-  console.log("Dados recebidos para criação do card:", data);
   const card = new Card(data.name, data.link, "#cardTemplate", handleCardClick);
   const cardElement = card.generateCard();
-  console.log("Card gerado:", cardElement);
+
   return cardElement;
 }
 
 // FUNCTION - MANIPULAR SUBMIT DE PERFIL
-export function handleProfileFormSubmit(event, formData) {
-  const profileNameElement = document.querySelector(".profile__name");
-  const profileDescriptionElement = document.querySelector(
-    ".profile__description"
-  );
 
-  profileNameElement.textContent = formData.firstInput || "Nome não definido";
-  profileDescriptionElement.textContent =
-    formData.secondInput || "Descrição não definida";
+const userInfo = new UserInfo(".profile__name", ".profile__description");
+
+export function handleProfileFormSubmit(event, formData) {
+  userInfo.setUserInfo({
+    name: formData.firstInput,
+    description: formData.secondInput,
+  });
 }
 
 //FUNCTION - MANIPULAR SUBMIT DE CARD

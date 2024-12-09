@@ -1,11 +1,5 @@
 import { Popup } from "./Popup.js";
-import { UserInfo } from "./UserInfo.js";
-import { Card } from "./Card.js";
 import { enableValidation } from "./FormValidator.js";
-import {
-  handleProfileFormSubmit,
-  handleCardFormSubmit,
-} from "../scripts/utils.js";
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, handleSubmit) {
