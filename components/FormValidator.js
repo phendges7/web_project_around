@@ -1,19 +1,26 @@
 // FUNCTION - Mostrar mensagem de erro
 export const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
+  const errorElement = formElement.querySelector(
+    `.popup__input-error[data-input="${inputElement.name}"]`
+  );
+
   if (errorElement) {
     inputElement.classList.add("popup__input_type_error");
     errorElement.textContent = errorMessage;
-    errorElement.classList.add("popup__input-error_visible");
+    errorElement.classList.add("visible");
   }
 };
 
 // FUNCTION - Ocultar mensagem de erro
 export const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.name}-error`);
-  inputElement.classList.remove("popup__input_type_error");
-  errorElement.classList.remove("popup__input-error_visible");
-  errorElement.textContent = "";
+  const errorElement = formElement.querySelector(
+    `.popup__input-error[data-input="${inputElement.name}"]`
+  );
+  if (errorElement) {
+    inputElement.classList.remove("popup__input_type_error");
+    errorElement.classList.remove("popup__input-error_visible");
+    errorElement.textContent = "";
+  }
 };
 
 // FUNCTION - Checar validade dos INPUTS
@@ -57,7 +64,7 @@ const setEventListeners = (formElement) => {
 // FUNCTION - Habilitar validacao nos formularios
 export const enableValidation = () => {
   document.querySelectorAll(".popup__wrapper").forEach((formElement) => {
-    formElement.addEventListener("submit", (evt) => evt.preventDefault());
+    formElement.addEventListener("submit", (event) => event.preventDefault());
     setEventListeners(formElement);
   });
 };

@@ -12,9 +12,6 @@ export class UserInfo {
   }
 
   setUserInfo({ name, description }) {
-    debugger;
-    console.log(this._descriptionElement);
-
     if (name) {
       this._nameElement.textContent = name;
     }

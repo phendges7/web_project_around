@@ -122,7 +122,7 @@
 }
 
 /* Estilos da mensagem de erro */
-.popup__input-error_visible {
+.popup__input-error.visible {
   margin-bottom: 13px;
   font-size: 12px;
   line-height: 1.25;
