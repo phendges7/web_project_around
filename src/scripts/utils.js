@@ -1,6 +1,7 @@
 import { Card } from "../components/Card.js";
 import { renderCard } from "../page/index.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { updateUserInfo } from "../components/Api.js";
 
 // FUNCTION - CRIAR CARD
 export function createCard(data, handleCardClick) {
@@ -15,10 +16,20 @@ export function createCard(data, handleCardClick) {
 const userInfo = new UserInfo(".profile__name", ".profile__description");
 
 export function handleProfileFormSubmit(event, formData) {
-  userInfo.setUserInfo({
-    name: formData.firstInput,
-    description: formData.secondInput,
-  });
+  debugger;
+  event.preventDefault();
+
+  updateUserInfo(formData.firstInput, formData.secondInput)
+    .then((updatedUserData) => {
+      userInfo.setUserInfo({
+        name: updatedUserData.name,
+        description: updatedUserData.about,
+        avatar: updatedUserData.avatar,
+      });
+    })
+    .catch((err) => {
+      console.log("Erro ao atualizar os dados do perfil:", err);
+    });
 }
 
 //FUNCTION - MANIPULAR SUBMIT DE CARD

@@ -2,7 +2,13 @@ import { Section } from "../components/Section.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { fetchUserInfo, fetchCards } from "../components/Api.js";
+
+import {
+  fetchUserInfo,
+  fetchCards,
+  updateUserInfo,
+} from "../components/Api.js";
+
 import {
   createCard,
   handleProfileFormSubmit,
@@ -51,7 +57,6 @@ function loadPageData() {
     .then(() => fetchCards())
     .then((cardsData) => {
       console.log("Dados do usuário recebidos da API:", cardsData); //TESTE LOG OBJETO
-      console.log(document.querySelector(".card-grid"));
       // Cria nova secao - secao de cards
       const cardSection = new Section(
         {

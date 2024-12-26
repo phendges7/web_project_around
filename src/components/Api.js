@@ -45,3 +45,29 @@ export function fetchCards() {
       throw err; // Repassa o erro para tratamento posterior, se necessário
     });
 }
+
+export function updateUserInfo({ name, about }) {
+  debugger;
+  fetch(API_URL_User, {
+    method: "PATCH",
+    headers: {
+      authorization: TOKEN,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: name,
+      about: about,
+    }),
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      // se o servidor retornar um erro, rejeite a promessa
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .catch((err) => {
+      console.error("Mensagem de erro no CATCH:", err);
+      throw err; // Repassa o erro para tratamento posterior, se necessário
+    });
+}
