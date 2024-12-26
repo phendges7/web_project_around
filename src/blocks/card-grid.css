@@ -54,7 +54,7 @@
   grid-area: like;
   margin-right: 18px;
   border: none;
-  background: url(../images/likeButton.svg) center no-repeat;
+  background: url(../../images/likeButton.svg) center no-repeat;
   cursor: pointer;
   height: 19px;
   width: 21px;
@@ -67,7 +67,7 @@
 }
 
 .card__like-button.active {
-  background: url(../images/likeButtonActive.svg) center no-repeat;
+  background: url(../../images/likeButtonActive.svg) center no-repeat;
 }
 
 .card__delete-button {

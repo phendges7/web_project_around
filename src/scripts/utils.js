@@ -1,5 +1,5 @@
 import { Card } from "../components/Card.js";
-import { renderCard } from "./index.js";
+import { renderCard } from "../page/index.js";
 import { UserInfo } from "../components/UserInfo.js";
 
 // FUNCTION - CRIAR CARD
