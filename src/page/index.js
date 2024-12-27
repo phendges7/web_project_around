@@ -1,18 +1,16 @@
 import { Section } from "../components/Section.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
+import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { UserInfo } from "../components/UserInfo.js";
 
-import {
-  fetchUserInfo,
-  fetchCards,
-  updateUserInfo,
-} from "../components/Api.js";
+import { fetchUserInfo, fetchCards } from "../components/Api.js";
 
 import {
   createCard,
   handleProfileFormSubmit,
   handleCardFormSubmit,
+  handleDeleteCard,
 } from "../scripts/utils.js";
 
 //CONTAINERS UTEIS
@@ -33,10 +31,11 @@ const userInfo = new UserInfo(
 
 // FUNCTION - Renderiza card
 export const renderCard = (data, cardSection) => {
-  const cardElement = createCard(data, handleCardClick);
+  const cardElement = createCard(data, handleCardClick, handleDeleteClick);
   cardSection.addItem(cardElement);
 };
 
+//GARANTE PAGINA ESTAR DEVIDAMENTE CARREGADA
 document.addEventListener("DOMContentLoaded", () => {
   loadPageData();
 });
@@ -44,10 +43,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // INICIA APLICACAO
 function loadPageData() {
   pageContainer.style.display = "none"; //OCULTA PAGINA ENQUANTO REQUESTS FINALIZAM
-
   fetchUserInfo()
     .then((userData) => {
-      console.log("Dados do usuário recebidos da API:", userData); //TESTE LOG OBJETO
+      console.log("Dados do usuário recebidos da API:", userData); //TESTE LOG OBJETO - USER
       userInfo.setUserInfo({
         name: userData.name,
         description: userData.about,
@@ -55,22 +53,24 @@ function loadPageData() {
       });
     })
     .then(() => fetchCards())
-    .then((cardsData) => {
-      console.log("Dados do usuário recebidos da API:", cardsData); //TESTE LOG OBJETO
+    .then((cardData) => {
+      console.log("Dados do usuário recebidos da API:", cardData); //TESTE LOG OBJETO - CARDS
+
       // Cria nova secao - secao de cards
       const cardSection = new Section(
         {
-          items: cardsData, // Usando os dados dos cartões recebidos do servidor
-          renderer: (data) => renderCard(data, cardSection), // Função para renderizar cada cartão
+          items: cardData,
+          renderer: (data) => renderCard(data, cardSection),
         },
         cardSectionContainer
       );
+      console.log(cardSection); //TESTE LOG OBJETO - SECTION
 
       // Renderiza os cartões na seção
       cardSection.renderItems();
     })
     .then(() => {
-      pageContainer.style.display = "flex"; //EXIBE PAGINA
+      pageContainer.style.display = "flex"; //EXIBE PAGINA AFTER FULLY LOADED
     })
     .catch((error) => {
       console.error("Erro ao inicializar a aplicação:", error);
@@ -86,8 +86,19 @@ const popupProfileForm = new PopupWithForm(
 popupProfileForm.setEventListeners();
 
 // Instancia popup para ADICIONAR CARD
-const popupCardForm = new PopupWithForm("#popupCard", handleCardFormSubmit);
+const popupCardForm = new PopupWithForm(
+  "#popupCard",
+  handleCardFormSubmit,
+  cardSectionContainer
+);
 popupCardForm.setEventListeners();
+
+//Instancia popup para DELETAR CARD
+const popupDeleteCard = new PopupWithConfirmation(
+  "#popupDeleteCard",
+  handleDeleteCard
+);
+popupDeleteCard.setEventListeners();
 
 // Instancia popup de IMAGEM EXPANDIDA
 const popupImage = new PopupWithImage(".popupImage");
@@ -100,10 +111,13 @@ export const handleCardClick = (name, link) => {
   popupImage.open(link, name);
 };
 
-/***********************************/
-// POPUPS
-// Instancia UserInfo
+// Manipula click na lixeira
+export const handleDeleteClick = (event, cardId) => {
+  popupDeleteCard.open(event, cardId);
+};
 
+/***********************************/
+//EVENT LISTENERS PARA POPUPS
 const editProfileButton = document.querySelector(".profile__edit-button");
 editProfileButton.addEventListener("click", () => {
   popupProfileForm.open();

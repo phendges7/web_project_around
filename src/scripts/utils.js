@@ -1,11 +1,19 @@
 import { Card } from "../components/Card.js";
 import { renderCard } from "../page/index.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { updateUserInfo } from "../components/Api.js";
+import { addCard, updateUserInfo, deleteCard } from "../components/Api.js";
 
 // FUNCTION - CRIAR CARD
-export function createCard(data, handleCardClick) {
-  const card = new Card(data.name, data.link, "#cardTemplate", handleCardClick);
+export function createCard(data, handleCardClick, handleDeleteClick) {
+  const card = new Card(
+    data.name,
+    data.link,
+    data._id,
+    data.isLiked,
+    "#cardTemplate",
+    handleCardClick,
+    handleDeleteClick
+  );
   const cardElement = card.generateCard();
 
   return cardElement;
@@ -16,15 +24,14 @@ export function createCard(data, handleCardClick) {
 const userInfo = new UserInfo(".profile__name", ".profile__description");
 
 export function handleProfileFormSubmit(event, formData) {
-  debugger;
-  event.preventDefault();
-
-  updateUserInfo(formData.firstInput, formData.secondInput)
+  updateUserInfo({
+    name: formData.firstInput,
+    about: formData.secondInput,
+  })
     .then((updatedUserData) => {
       userInfo.setUserInfo({
         name: updatedUserData.name,
         description: updatedUserData.about,
-        avatar: updatedUserData.avatar,
       });
     })
     .catch((err) => {
@@ -33,11 +40,41 @@ export function handleProfileFormSubmit(event, formData) {
 }
 
 //FUNCTION - MANIPULAR SUBMIT DE CARD
-export function handleCardFormSubmit(event, formData) {
+export function handleCardFormSubmit(event, formData, cardSection) {
+  debugger;
   const cardName = formData.firstInput || "Título não definido";
   const cardLink = formData.secondInput || "Imagem não definida";
 
-  renderCard({ name: cardName, link: cardLink });
+  console.log("Dados do novo cartão BEFORE:", {
+    name: cardName,
+    link: cardLink,
+  });
 
-  event.target.reset();
+  addCard(cardName, cardLink)
+    .then((newCardData) => {
+      renderCard(newCardData, cardSection);
+      console.log("Cartão adicionado com sucesso:", newCardData);
+      event.target.reset();
+    })
+    .catch((err) => {
+      console.error("Erro ao adicionar o cartão:", err);
+    });
+}
+
+//FUNCTION - MANIPULAR CARD DELETE
+export function handleDeleteCard(event, cardId) {
+  const deleteButton = event.target;
+  const cardElement = deleteButton.closest(".card");
+  console.log(`Deletando o card com ID: ${cardId}`);
+
+  if (cardElement) {
+    deleteCard(cardId)
+      .then(() => {
+        cardElement.remove();
+        cardElement = null;
+      })
+      .catch((err) => {
+        console.error("Erro ao excluir o cartão:", err);
+      });
+  }
 }
