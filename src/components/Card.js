@@ -1,6 +1,3 @@
-import { addCardLike, removeCardLike, deleteCard } from "./Api.js";
-import { PopupWithConfirmation } from "./PopupWithConfirmation.js";
-
 export class Card {
   constructor(
     name,

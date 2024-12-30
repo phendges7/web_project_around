@@ -1,7 +1,7 @@
 import { Card } from "../components/Card.js";
 import { renderCard } from "../page/index.js";
 import { UserInfo } from "../components/UserInfo.js";
-import { addCard, updateUserInfo, deleteCard } from "../components/Api.js";
+import api from "../components/Api.js";
 
 // FUNCTION - CRIAR CARD
 export function createCard(data, handleCardClick, handleDeleteClick) {
@@ -23,11 +23,12 @@ export function createCard(data, handleCardClick, handleDeleteClick) {
 
 const userInfo = new UserInfo(".profile__name", ".profile__description");
 
-export function handleProfileFormSubmit(event, formData) {
-  updateUserInfo({
-    name: formData.firstInput,
-    about: formData.secondInput,
-  })
+export function handleProfileFormSubmit(formData) {
+  api
+    .updateUserInfo({
+      name: formData.firstInput,
+      about: formData.secondInput,
+    })
     .then((updatedUserData) => {
       userInfo.setUserInfo({
         name: updatedUserData.name,
@@ -68,7 +69,8 @@ export function handleDeleteCard(event, cardId) {
   console.log(`Deletando o card com ID: ${cardId}`);
 
   if (cardElement) {
-    deleteCard(cardId)
+    api
+      .deleteCard(cardId)
       .then(() => {
         cardElement.remove();
         cardElement = null;

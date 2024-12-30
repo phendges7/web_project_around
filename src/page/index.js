@@ -4,7 +4,7 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { UserInfo } from "../components/UserInfo.js";
 
-import { fetchUserInfo, fetchCards } from "../components/Api.js";
+import api from "../components/Api.js";
 
 import {
   createCard,
@@ -43,18 +43,16 @@ document.addEventListener("DOMContentLoaded", () => {
 // INICIA APLICACAO
 function loadPageData() {
   pageContainer.style.display = "none"; //OCULTA PAGINA ENQUANTO REQUESTS FINALIZAM
-  fetchUserInfo()
-    .then((userData) => {
-      console.log("Dados do usuário recebidos da API:", userData); //TESTE LOG OBJETO - USER
+  api
+    .fetchUserAndCards()
+    .then(([userData, cardData]) => {
+      console.log("Dados do usuário recebidos da API:", userData); // TESTE LOG OBJETO - USER
       userInfo.setUserInfo({
         name: userData.name,
         description: userData.about,
         avatar: userData.avatar,
       });
-    })
-    .then(() => fetchCards())
-    .then((cardData) => {
-      console.log("Dados do usuário recebidos da API:", cardData); //TESTE LOG OBJETO - CARDS
+      console.log("Dados dos cartões recebidos da API:", cardData); // TESTE LOG OBJETO - CARDS
 
       // Cria nova secao - secao de cards
       const cardSection = new Section(
@@ -72,8 +70,8 @@ function loadPageData() {
     .then(() => {
       pageContainer.style.display = "flex"; //EXIBE PAGINA AFTER FULLY LOADED
     })
-    .catch((error) => {
-      console.error("Erro ao inicializar a aplicação:", error);
+    .catch((err) => {
+      console.error("Erro ao buscar informações do usuário e cartões:", err);
     });
 }
 
