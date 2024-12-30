@@ -1,3 +1,5 @@
+import api from "./Api.js";
+
 export class Card {
   constructor(
     name,
@@ -48,7 +50,8 @@ export class Card {
   _handleLikeClick(likeButton) {
     const isActive = likeButton.classList.contains("active");
     if (isActive) {
-      removeCardLike(this._id)
+      api
+        .removeCardLike(this._id)
         .then((updatedCard) => {
           likeButton.classList.remove("active");
           this._isLiked = false;
@@ -57,7 +60,8 @@ export class Card {
           console.error("Erro ao remover curtida:", err);
         });
     } else {
-      addCardLike(this._id)
+      api
+        .addCardLike(this._id)
         .then((updatedCard) => {
           likeButton.classList.add("active");
           this._isLiked = true;
@@ -70,9 +74,6 @@ export class Card {
 
   // Manipulação clique "excluir"
   _handleDeleteClick(event, cardId) {
-    console.log(event);
-    console.log(cardId);
-
     this.popupDeleteCard.open(cardId);
   }
 

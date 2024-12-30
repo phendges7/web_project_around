@@ -23,7 +23,8 @@ export function createCard(data, handleCardClick, handleDeleteClick) {
 
 const userInfo = new UserInfo(".profile__name", ".profile__description");
 
-export function handleProfileFormSubmit(formData) {
+export function handleProfileFormSubmit(params) {
+  const { formData } = params;
   api
     .updateUserInfo({
       name: formData.firstInput,
@@ -40,29 +41,49 @@ export function handleProfileFormSubmit(formData) {
     });
 }
 
-//FUNCTION - MANIPULAR SUBMIT DE CARD
-export function handleCardFormSubmit(event, formData, cardSection) {
-  debugger;
+// FUNCTION - MANIPULAR SUBMIT DE CARD
+export function handleCardFormSubmit(params) {
+  const { event, formData, cardSection } = params;
   const cardName = formData.firstInput || "Título não definido";
   const cardLink = formData.secondInput || "Imagem não definida";
 
   console.log("Dados do novo cartão BEFORE:", {
     name: cardName,
     link: cardLink,
+    section: cardSection,
   });
-
-  addCard(cardName, cardLink)
+  api
+    .addCard({ name: cardName, link: cardLink })
     .then((newCardData) => {
+      debugger;
       renderCard(newCardData, cardSection);
       console.log("Cartão adicionado com sucesso:", newCardData);
       event.target.reset();
     })
     .catch((err) => {
       console.error("Erro ao adicionar o cartão:", err);
+      if (err.response) {
+        console.error("Detalhes do erro:", err.response);
+      }
     });
 }
 
-//FUNCTION - MANIPULAR CARD DELETE
+// FUNCTION - MANIPULAR UPDATE AVATAR
+export function handleAvatarFormSubmit(formData) {
+  const { formData } = params;
+  debugger;
+  api
+    .updateAvatar({ link: formData.firstInput })
+    .then(() => {
+      const avatarImage = document.querySelector(".profile__picture");
+      avatarImage.src = formData.firstInput;
+    })
+    .catch((err) => {
+      console.error("Erro ao atualizar o avatar:", err);
+    });
+}
+
+// FUNCTION - MANIPULAR CARD DELETE
 export function handleDeleteCard(event, cardId) {
   const deleteButton = event.target;
   const cardElement = deleteButton.closest(".card");
@@ -73,7 +94,6 @@ export function handleDeleteCard(event, cardId) {
       .deleteCard(cardId)
       .then(() => {
         cardElement.remove();
-        cardElement = null;
       })
       .catch((err) => {
         console.error("Erro ao excluir o cartão:", err);

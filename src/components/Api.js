@@ -35,6 +35,7 @@ class Api {
   }
 
   updateUserInfo({ name, about }) {
+    console.log("Dados enviados para a API:", { name, about });
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -44,7 +45,19 @@ class Api {
       .catch(this._handleError);
   }
 
+  updateAvatar(link) {
+    debugger;
+    return fetch(`${this._baseUrl}/user/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({ link }),
+    })
+      .then(this._handleResponse)
+      .catch(this._handleError);
+  }
+
   addCard({ name, link }) {
+    console.log("Dados enviados para a API:", { name, link });
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -89,7 +102,7 @@ class Api {
 const api = new Api({
   baseUrl: "https://around-api.pt-br.tripleten-services.com/v1",
   headers: {
-    authorization: "85c48676-c5af-4b92-ba2f-91e81208dca6",
+    authorization: "8308cb53-bc91-42d1-afda-3dc42a0181bf",
     "Content-Type": "application/json",
   },
 });

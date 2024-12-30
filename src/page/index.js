@@ -11,6 +11,7 @@ import {
   handleProfileFormSubmit,
   handleCardFormSubmit,
   handleDeleteCard,
+  handleAvatarFormSubmit,
 } from "../scripts/utils.js";
 
 //CONTAINERS UTEIS
@@ -31,6 +32,8 @@ const userInfo = new UserInfo(
 
 // FUNCTION - Renderiza card
 export const renderCard = (data, cardSection) => {
+  console.log("addItem" in cardSection); // Verifica se o método addItem existe no objeto
+
   const cardElement = createCard(data, handleCardClick, handleDeleteClick);
   cardSection.addItem(cardElement);
 };
@@ -58,7 +61,7 @@ function loadPageData() {
       const cardSection = new Section(
         {
           items: cardData,
-          renderer: (data) => renderCard(data, cardSection),
+          renderer: (data) => renderCard(data, cardSection), // Passando a instância correta
         },
         cardSectionContainer
       );
@@ -82,6 +85,13 @@ const popupProfileForm = new PopupWithForm(
   handleProfileFormSubmit
 );
 popupProfileForm.setEventListeners();
+
+// Instancia popup para EDITAR AVATAR
+const popupAvatarForm = new PopupWithForm(
+  "#popupAvatar",
+  handleAvatarFormSubmit
+);
+popupAvatarForm.setEventListeners();
 
 // Instancia popup para ADICIONAR CARD
 const popupCardForm = new PopupWithForm(
@@ -124,6 +134,11 @@ editProfileButton.addEventListener("click", () => {
 const addCardButton = document.querySelector(".profile__add-place-button");
 addCardButton.addEventListener("click", () => {
   popupCardForm.open();
+});
+
+const editAvatarButton = document.querySelector(".profile__picture-container");
+editAvatarButton.addEventListener("click", () => {
+  popupAvatarForm.open();
 });
 
 /**********************************/

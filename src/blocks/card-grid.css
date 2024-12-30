@@ -31,6 +31,7 @@
 }
 
 .card__image:hover {
+  transition: opacity 0.3s ease;
   opacity: 0.5;
   cursor: pointer;
 }
@@ -63,6 +64,7 @@
 }
 
 .card__like-button:hover {
+  transition: opacity 0.3s ease;
   opacity: 0.5;
 }
 

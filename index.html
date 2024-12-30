@@ -26,11 +26,15 @@
 
       <main class="content">
         <section class="profile">
-          <img
-            src="./images/profilePic.jpg"
-            alt="Foto de Perfil"
-            class="profile__picture"
-          />
+          <div class="profile__picture-container">
+            <img
+              src="./images/profilePic.jpg"
+              alt="Foto de Perfil"
+              class="profile__picture"
+            />
+            <div class="profile__overlay"></div>
+          </div>
+
           <div class="profile__info-wrapper">
             <div class="profile__info">
               <h1 class="profile__name">Pedro Henrique</h1>
@@ -79,6 +83,33 @@
                 required
               />
               <span class="popup__input-error" data-input="secondInput"></span>
+
+              <!-- Botão de envio -->
+              <button type="submit" class="popup__submit-button">SALVAR</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="popup" id="popupAvatar">
+          <div class="popup__position">
+            <img
+              src="./images/closeIcon.svg"
+              alt="Fechar"
+              class="popup__close-button"
+            />
+            <form class="popup__wrapper" name="popupForm">
+              <h3 class="popup__title">Alterar foto de perfil</h3>
+              <!-- Campo de entrada com label e span para erros -->
+              <input
+                type="url"
+                name="firstInput"
+                class="popup__input"
+                placeholder="URL da imagem"
+                minlength="2"
+                maxlength="200"
+                required
+              />
+              <span class="popup__input-error" data-input="firstInput"></span>
 
               <!-- Botão de envio -->
               <button type="submit" class="popup__submit-button">SALVAR</button>

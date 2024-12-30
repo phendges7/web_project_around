@@ -29,7 +29,15 @@ export class PopupWithForm extends Popup {
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
       const formData = this._getInputValues();
-      this._handleSubmit(event, formData, this._cardSection);
+      const params = {
+        formData,
+        event, // Adicionando o evento, caso precise dele
+        cardSection: this._cardSection, // Mantendo o cardSection, caso esteja em uso
+      };
+      console.log("Dados do formulário:", formData);
+      console.log("obj section:", this._cardSection);
+
+      this._handleSubmit(params);
       this.close();
     });
   }
