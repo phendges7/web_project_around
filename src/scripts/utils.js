@@ -44,14 +44,10 @@ export function handleProfileFormSubmit(params) {
 // FUNCTION - MANIPULAR SUBMIT DE CARD
 export function handleCardFormSubmit(params) {
   const { event, formData, cardSection } = params;
+
   const cardName = formData.firstInput || "Título não definido";
   const cardLink = formData.secondInput || "Imagem não definida";
 
-  console.log("Dados do novo cartão BEFORE:", {
-    name: cardName,
-    link: cardLink,
-    section: cardSection,
-  });
   api
     .addCard({ name: cardName, link: cardLink })
     .then((newCardData) => {
@@ -69,7 +65,7 @@ export function handleCardFormSubmit(params) {
 }
 
 // FUNCTION - MANIPULAR UPDATE AVATAR
-export function handleAvatarFormSubmit(formData) {
+export function handleAvatarFormSubmit(params) {
   const { formData } = params;
   debugger;
   api

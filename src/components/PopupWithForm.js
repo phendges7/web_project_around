@@ -1,5 +1,6 @@
 import { Popup } from "./Popup.js";
 import { enableValidation } from "./FormValidator.js";
+import { Section } from "./Section.js";
 
 export class PopupWithForm extends Popup {
   constructor(popupSelector, handleSubmit, cardSection) {
@@ -27,15 +28,19 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
 
     this._form.addEventListener("submit", (event) => {
+      debugger;
       event.preventDefault();
+      if (!this._cardSection) {
+        console.error("Erro: cardSection não foi passado corretamente.");
+        return;
+      }
+
       const formData = this._getInputValues();
       const params = {
         formData,
         event, // Adicionando o evento, caso precise dele
         cardSection: this._cardSection, // Mantendo o cardSection, caso esteja em uso
       };
-      console.log("Dados do formulário:", formData);
-      console.log("obj section:", this._cardSection);
 
       this._handleSubmit(params);
       this.close();

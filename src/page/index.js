@@ -30,10 +30,19 @@ const userInfo = new UserInfo(
   avatarSelector
 );
 
+// Cria nova secao - secao de cards
+const cardSection = new Section(
+  {
+    items: [],
+    renderer: (data) => renderCard(data, cardSection), // Passando a instância correta
+  },
+  cardSectionContainer
+);
+console.log(cardSection); //TESTE LOG OBJETO - SECTION
+
 // FUNCTION - Renderiza card
 export const renderCard = (data, cardSection) => {
-  console.log("addItem" in cardSection); // Verifica se o método addItem existe no objeto
-
+  console.log("log no RENDERCARD", cardSection);
   const cardElement = createCard(data, handleCardClick, handleDeleteClick);
   cardSection.addItem(cardElement);
 };
@@ -57,17 +66,8 @@ function loadPageData() {
       });
       console.log("Dados dos cartões recebidos da API:", cardData); // TESTE LOG OBJETO - CARDS
 
-      // Cria nova secao - secao de cards
-      const cardSection = new Section(
-        {
-          items: cardData,
-          renderer: (data) => renderCard(data, cardSection), // Passando a instância correta
-        },
-        cardSectionContainer
-      );
-      console.log(cardSection); //TESTE LOG OBJETO - SECTION
-
       // Renderiza os cartões na seção
+      cardSection._items = cardData;
       cardSection.renderItems();
     })
     .then(() => {
@@ -97,7 +97,7 @@ popupAvatarForm.setEventListeners();
 const popupCardForm = new PopupWithForm(
   "#popupCard",
   handleCardFormSubmit,
-  cardSectionContainer
+  cardSection
 );
 popupCardForm.setEventListeners();
 
