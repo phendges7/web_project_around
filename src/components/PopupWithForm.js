@@ -1,14 +1,16 @@
 import { Popup } from "./Popup.js";
 import { enableValidation } from "./FormValidator.js";
+import { Section } from "./Section.js";
 
 export class PopupWithForm extends Popup {
-  constructor(popupSelector, handleSubmit) {
+  constructor(popupSelector, handleSubmit, cardSection) {
     super(popupSelector);
     this._form = this._popup.querySelector(".popup__wrapper");
     this._inputElements = Array.from(
       this._form.querySelectorAll(".popup__input")
     );
     this._handleSubmit = handleSubmit;
+    this._cardSection = cardSection;
 
     enableValidation();
   }
@@ -27,8 +29,15 @@ export class PopupWithForm extends Popup {
 
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
+
       const formData = this._getInputValues();
-      this._handleSubmit(event, formData);
+      const params = {
+        formData,
+        event, // Adicionando o evento, caso precise dele
+        cardSection: this._cardSection, // Mantendo o cardSection, caso esteja em uso
+      };
+
+      this._handleSubmit(params);
       this.close();
     });
   }

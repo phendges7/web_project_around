@@ -32,7 +32,7 @@
 
 ## CSS
 
-### \* index.css: Contém os estilos específicos de cada bloco da página inicial.
+### \* index.css: Contém todos os estilos específicos de cada bloco da página inicial.
 
 ### \* normalize.css: Um arquivo CSS para normalizar estilos entre diferentes navegadores.
 
@@ -56,6 +56,8 @@
 
 ### \* index.js: Um arquivo JS contendo todas as instancias de objetos e ouvintes de eventos.
 
+### \* Api.js: Um arquivo JS contendo toda a estrutura de conexao e comunicacao com o servidor.
+
 ### \* Card.js: Um arquivo JS contendo toda a estrutura do elemento CARD com propriedades e metodos
 
 ### \* FormValidator.js: Um arquivo JS contendo todas as funcoes aplicadas na validacao dos formularios usados nos POPUPS.
@@ -63,6 +65,8 @@
 ### \* Popup.js: Um arquivo JS contendo toda a estrutura do elemento POPUP com propriedades e metodos
 
 ### \* PopupWithForm.js: Um arquivo JS contendo toda a estrutura do elemento Popup com formularios - classe que herda atributos e modifica metodos de sua classe-pai
+
+### \* PopupWithConfirmation.js: Um arquivo JS contendo toda a estrutura do elemento Popup com confirmacao - classe que herda atributos e modifica metodos de sua classe-pai
 
 ### \* PopupWithImage.js: Um arquivo JS contendo toda a estrutura do elemento Popup com imagem - classe que herda atributos e modifica metodos de sua classe-pai
 
