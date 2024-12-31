@@ -66,7 +66,7 @@ function loadPageData() {
       });
       console.log("Dados dos cartões recebidos da API:", cardData); // TESTE LOG OBJETO - CARDS
 
-      // Renderiza os cartões na seção
+      // Renderiza os cards na section
       cardSection._items = cardData;
       cardSection.renderItems();
     })
@@ -114,7 +114,7 @@ popupImage.setEventListeners();
 
 /***********************************/
 //CARDS
-// Manipula clique no cards
+// Manipula clique no card
 export const handleCardClick = (name, link) => {
   popupImage.open(link, name);
 };
