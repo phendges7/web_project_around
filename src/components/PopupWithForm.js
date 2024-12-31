@@ -28,12 +28,7 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
 
     this._form.addEventListener("submit", (event) => {
-      debugger;
       event.preventDefault();
-      if (!this._cardSection) {
-        console.error("Erro: cardSection não foi passado corretamente.");
-        return;
-      }
 
       const formData = this._getInputValues();
       const params = {

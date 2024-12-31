@@ -7,12 +7,32 @@ class Api {
   _handleResponse(res) {
     if (res.ok) {
       return res.json();
+    } else {
+      console.error(
+        `Erro na resposta da API: ${res.status} - ${res.statusText}`
+      );
+      return Promise.reject(`Error: ${res.status} ${res.statusText}`);
     }
-    return Promise.reject(`Error: ${res.status}`);
   }
 
   _handleError(err) {
-    console.error("Mensagem de erro no CATCH:", err);
+    // Tratamento - ERRO DE REDE
+    if (err instanceof TypeError) {
+      console.error("Erro de rede: Não foi possível se conectar ao servidor.");
+      alert(
+        "Erro de rede: Não foi possível se conectar ao servidor. Tente novamente mais tarde."
+      );
+    } else if (err instanceof SyntaxError) {
+      // Tratamento - ERRO DE SINTAXE
+      console.error("Erro de sintaxe na resposta da API.");
+      alert("Erro de sintaxe na resposta. Tente novamente mais tarde.");
+    } else {
+      // Tratamento - ERROS GERAIS
+      console.error("Erro desconhecido:", err.message || err);
+      alert("Ocorreu um erro desconhecido. Tente novamente mais tarde.");
+    }
+    // Log do erro no console
+    console.error("Detalhes do erro:", err);
     throw err;
   }
 
@@ -35,7 +55,6 @@ class Api {
   }
 
   updateUserInfo({ name, about }) {
-    console.log("Dados enviados para a API:", { name, about });
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -45,12 +64,11 @@ class Api {
       .catch(this._handleError);
   }
 
-  updateAvatar(link) {
-    debugger;
-    return fetch(`${this._baseUrl}/user/me/avatar`, {
+  updateAvatar(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({ link }),
+      body: JSON.stringify({ avatar }),
     })
       .then(this._handleResponse)
       .catch(this._handleError);

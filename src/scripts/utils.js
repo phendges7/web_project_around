@@ -25,12 +25,23 @@ const userInfo = new UserInfo(".profile__name", ".profile__description");
 
 export function handleProfileFormSubmit(params) {
   const { formData } = params;
+
+  const submitButton = document.querySelector(
+    "#popupProfile .popup__submit-button"
+  );
+  submitButton.textContent = "Salvando...";
+  submitButton.disabled = true;
+  submitButton.classList.add("disabled");
+  debugger;
   api
     .updateUserInfo({
       name: formData.firstInput,
       about: formData.secondInput,
     })
     .then((updatedUserData) => {
+      submitButton.textContent = "SALVAR";
+      submitButton.disabled = false;
+      submitButton.classList.remove("disabled");
       userInfo.setUserInfo({
         name: updatedUserData.name,
         description: updatedUserData.about,
@@ -45,15 +56,26 @@ export function handleProfileFormSubmit(params) {
 export function handleCardFormSubmit(params) {
   const { event, formData, cardSection } = params;
 
+  const submitButton = document.querySelector(
+    "#popupCard .popup__submit-button"
+  );
+  submitButton.textContent = "Salvando...";
+  submitButton.disabled = true;
+  submitButton.classList.add("disabled");
+  debugger;
+
   const cardName = formData.firstInput || "Título não definido";
   const cardLink = formData.secondInput || "Imagem não definida";
 
   api
     .addCard({ name: cardName, link: cardLink })
     .then((newCardData) => {
-      debugger;
       renderCard(newCardData, cardSection);
       console.log("Cartão adicionado com sucesso:", newCardData);
+
+      submitButton.textContent = "CRIAR";
+      submitButton.disabled = false;
+      submitButton.classList.remove("disabled");
       event.target.reset();
     })
     .catch((err) => {
@@ -67,12 +89,25 @@ export function handleCardFormSubmit(params) {
 // FUNCTION - MANIPULAR UPDATE AVATAR
 export function handleAvatarFormSubmit(params) {
   const { formData } = params;
+  const submitButton = document.querySelector(
+    "#popupAvatar .popup__submit-button"
+  );
+  console.log("log de params no HandleAvatar: ", params);
+
+  submitButton.textContent = "Salvando...";
+  submitButton.disabled = true;
+  submitButton.classList.add("disabled");
   debugger;
+
   api
-    .updateAvatar({ link: formData.firstInput })
+    .updateAvatar(formData.firstInput)
     .then(() => {
       const avatarImage = document.querySelector(".profile__picture");
       avatarImage.src = formData.firstInput;
+
+      submitButton.textContent = "SALVAR";
+      submitButton.disabled = false;
+      submitButton.classList.remove("disabled");
     })
     .catch((err) => {
       console.error("Erro ao atualizar o avatar:", err);

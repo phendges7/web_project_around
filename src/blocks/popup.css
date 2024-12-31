@@ -84,6 +84,7 @@
 /* Estilos do botao SALVAR */
 .popup__submit-button {
   margin-top: 20px;
+  width: 100%;
   height: 50px;
   font-family: "Inter";
   font-style: normal;
