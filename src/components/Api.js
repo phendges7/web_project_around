@@ -16,24 +16,25 @@ class Api {
   }
 
   _handleError(err) {
-    // Tratamento - ERRO DE REDE
     if (err instanceof TypeError) {
       console.error("Erro de rede: Não foi possível se conectar ao servidor.");
-      alert(
-        "Erro de rede: Não foi possível se conectar ao servidor. Tente novamente mais tarde."
-      );
+      return {
+        type: "network",
+        message: "Erro de rede: Não foi possível se conectar ao servidor.",
+      };
     } else if (err instanceof SyntaxError) {
-      // Tratamento - ERRO DE SINTAXE
       console.error("Erro de sintaxe na resposta da API.");
-      alert("Erro de sintaxe na resposta. Tente novamente mais tarde.");
+      return {
+        type: "syntax",
+        message: "Erro de sintaxe na resposta. Tente novamente mais tarde.",
+      };
     } else {
-      // Tratamento - ERROS GERAIS
       console.error("Erro desconhecido:", err.message || err);
-      alert("Ocorreu um erro desconhecido. Tente novamente mais tarde.");
+      return {
+        type: "unknown",
+        message: err.message || "Ocorreu um erro desconhecido.",
+      };
     }
-    // Log do erro no console
-    console.error("Detalhes do erro:", err);
-    throw err;
   }
 
   getUserInfo() {
@@ -41,8 +42,11 @@ class Api {
       method: "GET",
       headers: this._headers,
     })
-      .then(this._handleResponse)
-      .catch(this._handleError);
+      .then(this._handleResponse) // Processa resposta
+      .catch((err) => {
+        const processedError = this._handleError(err); // Processa erro
+        throw processedError; // Propaga erro processado
+      });
   }
 
   getInitialCards() {
@@ -51,7 +55,10 @@ class Api {
       headers: this._headers,
     })
       .then(this._handleResponse)
-      .catch(this._handleError);
+      .catch((err) => {
+        const processedError = this._handleError(err);
+        throw processedError;
+      });
   }
 
   updateUserInfo({ name, about }) {
@@ -61,7 +68,10 @@ class Api {
       body: JSON.stringify({ name, about }),
     })
       .then(this._handleResponse)
-      .catch(this._handleError);
+      .catch((err) => {
+        const processedError = this._handleError(err);
+        throw processedError;
+      });
   }
 
   updateAvatar(avatar) {
@@ -71,18 +81,23 @@ class Api {
       body: JSON.stringify({ avatar }),
     })
       .then(this._handleResponse)
-      .catch(this._handleError);
+      .catch((err) => {
+        const processedError = this._handleError(err);
+        throw processedError;
+      });
   }
 
   addCard({ name, link }) {
-    console.log("Dados enviados para a API:", { name, link });
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({ name, link }),
     })
       .then(this._handleResponse)
-      .catch(this._handleError);
+      .catch((err) => {
+        const processedError = this._handleError(err);
+        throw processedError;
+      });
   }
 
   addCardLike(cardId) {
@@ -91,7 +106,10 @@ class Api {
       headers: this._headers,
     })
       .then(this._handleResponse)
-      .catch(this._handleError);
+      .catch((err) => {
+        const processedError = this._handleError(err);
+        throw processedError;
+      });
   }
 
   removeCardLike(cardId) {
@@ -100,7 +118,10 @@ class Api {
       headers: this._headers,
     })
       .then(this._handleResponse)
-      .catch(this._handleError);
+      .catch((err) => {
+        const processedError = this._handleError(err);
+        throw processedError;
+      });
   }
 
   deleteCard(cardId) {
@@ -109,7 +130,10 @@ class Api {
       headers: this._headers,
     })
       .then(this._handleResponse)
-      .catch(this._handleError);
+      .catch((err) => {
+        const processedError = this._handleError(err);
+        throw processedError;
+      });
   }
 
   fetchUserAndCards() {

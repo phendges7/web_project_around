@@ -3,15 +3,16 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { Card } from "../components/Card.js";
 
 import api from "../components/Api.js";
 
 import {
-  createCard,
   handleProfileFormSubmit,
   handleCardFormSubmit,
   handleDeleteCard,
   handleAvatarFormSubmit,
+  handleError,
 } from "../scripts/utils.js";
 
 //CONTAINERS UTEIS
@@ -38,12 +39,20 @@ const cardSection = new Section(
   },
   cardSectionContainer
 );
-console.log(cardSection); //TESTE LOG OBJETO - SECTION
 
 // FUNCTION - Renderiza card
 export const renderCard = (data, cardSection) => {
-  console.log("log no RENDERCARD", cardSection);
-  const cardElement = createCard(data, handleCardClick, handleDeleteClick);
+  const card = new Card(
+    data.name,
+    data.link,
+    data._id,
+    data.isLiked,
+    "#cardTemplate",
+    handleCardClick,
+    handleDeleteClick
+  );
+  const cardElement = card.generateCard();
+
   cardSection.addItem(cardElement);
 };
 
@@ -58,13 +67,11 @@ function loadPageData() {
   api
     .fetchUserAndCards()
     .then(([userData, cardData]) => {
-      console.log("Dados do usuário recebidos da API:", userData); // TESTE LOG OBJETO - USER
       userInfo.setUserInfo({
         name: userData.name,
         description: userData.about,
         avatar: userData.avatar,
       });
-      console.log("Dados dos cartões recebidos da API:", cardData); // TESTE LOG OBJETO - CARDS
 
       // Renderiza os cards na section
       cardSection._items = cardData;
@@ -74,7 +81,8 @@ function loadPageData() {
       pageContainer.style.display = "flex"; //EXIBE PAGINA AFTER FULLY LOADED
     })
     .catch((err) => {
-      console.error("Erro ao buscar informações do usuário e cartões:", err);
+      const errorMessage = handleError(err);
+      alert(errorMessage);
     });
 }
 
