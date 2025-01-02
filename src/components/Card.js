@@ -31,17 +31,13 @@ export class Card {
 
   // Ouvintes de eventos
   _setEventListeners() {
-    const image = this._element.querySelector(".card__image");
-    const likeButton = this._element.querySelector(".card__like-button");
-    const deleteButton = this._element.querySelector(".card__delete-button");
-
-    image.addEventListener("click", () =>
+    this._image.addEventListener("click", () =>
       this._handleCardClick(this._name, this._link)
     );
-    likeButton.addEventListener("click", () =>
-      this._handleLikeClick(likeButton)
+    this._likeButton.addEventListener("click", () =>
+      this._handleLikeClick(this._likeButton)
     );
-    deleteButton.addEventListener("click", (event) =>
+    this._deleteButton.addEventListener("click", (event) =>
       this._handleDeleteClick(event, this._id)
     );
   }
@@ -52,7 +48,7 @@ export class Card {
     if (isActive) {
       api
         .removeCardLike(this._id)
-        .then((updatedCard) => {
+        .then(() => {
           likeButton.classList.remove("active");
           this._isLiked = false;
         })
@@ -62,7 +58,7 @@ export class Card {
     } else {
       api
         .addCardLike(this._id)
-        .then((updatedCard) => {
+        .then(() => {
           likeButton.classList.add("active");
           this._isLiked = true;
         })
@@ -73,7 +69,7 @@ export class Card {
   }
 
   // Manipulação clique "excluir"
-  _handleDeleteClick(event, cardId) {
+  _handleDeleteClick(cardId) {
     this.popupDeleteCard.open(cardId);
   }
 
@@ -81,16 +77,18 @@ export class Card {
   generateCard() {
     this._element = this._getTemplate();
 
-    const image = this._element.querySelector(".card__image");
-    const nameElement = this._element.querySelector(".card__name");
-    const likeButton = this._element.querySelector(".card__like-button");
+    // Declarando variáveis para elementos específicos
+    this._image = this._element.querySelector(".card__image");
+    this._title = this._element.querySelector(".card__title");
+    this._likeButton = this._element.querySelector(".card__like-button");
+    this._deleteButton = this._element.querySelector(".card__delete-button");
 
-    image.src = this._link;
-    image.alt = this._name;
-    nameElement.textContent = this._name;
+    this._image.src = this._link;
+    this._image.alt = this._name;
+    this._title.textContent = this._name;
 
     if (this._isLiked) {
-      likeButton.classList.add("active");
+      this._likeButton.classList.add("active");
     }
 
     this._setEventListeners();

@@ -36,7 +36,7 @@
   cursor: pointer;
 }
 
-.card__name {
+.card__title {
   grid-area: name;
   margin-left: 21px;
   text-wrap: nowrap;

@@ -75,7 +75,6 @@ class Api {
   }
 
   addCard({ name, link }) {
-    console.log("Dados enviados para a API:", { name, link });
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,

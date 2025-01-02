@@ -3,24 +3,7 @@ import { renderCard } from "../page/index.js";
 import { UserInfo } from "../components/UserInfo.js";
 import api from "../components/Api.js";
 
-// FUNCTION - CRIAR CARD
-export function createCard(data, handleCardClick, handleDeleteClick) {
-  const card = new Card(
-    data.name,
-    data.link,
-    data._id,
-    data.isLiked,
-    "#cardTemplate",
-    handleCardClick,
-    handleDeleteClick
-  );
-  const cardElement = card.generateCard();
-
-  return cardElement;
-}
-
 // FUNCTION - MANIPULAR SUBMIT DE PERFIL
-
 const userInfo = new UserInfo(".profile__name", ".profile__description");
 
 export function handleProfileFormSubmit(params) {
@@ -32,7 +15,7 @@ export function handleProfileFormSubmit(params) {
   submitButton.textContent = "Salvando...";
   submitButton.disabled = true;
   submitButton.classList.add("disabled");
-  debugger;
+
   api
     .updateUserInfo({
       name: formData.firstInput,
@@ -48,7 +31,7 @@ export function handleProfileFormSubmit(params) {
       });
     })
     .catch((err) => {
-      console.log("Erro ao atualizar os dados do perfil:", err);
+      console.error("Erro ao atualizar os dados do perfil:", err);
     });
 }
 
@@ -62,7 +45,6 @@ export function handleCardFormSubmit(params) {
   submitButton.textContent = "Salvando...";
   submitButton.disabled = true;
   submitButton.classList.add("disabled");
-  debugger;
 
   const cardName = formData.firstInput || "Título não definido";
   const cardLink = formData.secondInput || "Imagem não definida";
@@ -71,7 +53,6 @@ export function handleCardFormSubmit(params) {
     .addCard({ name: cardName, link: cardLink })
     .then((newCardData) => {
       renderCard(newCardData, cardSection);
-      console.log("Cartão adicionado com sucesso:", newCardData);
 
       submitButton.textContent = "CRIAR";
       submitButton.disabled = false;
@@ -92,12 +73,10 @@ export function handleAvatarFormSubmit(params) {
   const submitButton = document.querySelector(
     "#popupAvatar .popup__submit-button"
   );
-  console.log("log de params no HandleAvatar: ", params);
 
   submitButton.textContent = "Salvando...";
   submitButton.disabled = true;
   submitButton.classList.add("disabled");
-  debugger;
 
   api
     .updateAvatar(formData.firstInput)
@@ -118,7 +97,6 @@ export function handleAvatarFormSubmit(params) {
 export function handleDeleteCard(event, cardId) {
   const deleteButton = event.target;
   const cardElement = deleteButton.closest(".card");
-  console.log(`Deletando o card com ID: ${cardId}`);
 
   if (cardElement) {
     api
