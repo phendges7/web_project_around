@@ -1,4 +1,3 @@
-import { Card } from "../components/Card.js";
 import { renderCard } from "../page/index.js";
 import { UserInfo } from "../components/UserInfo.js";
 import api from "../components/Api.js";
@@ -31,7 +30,8 @@ export function handleProfileFormSubmit(params) {
       });
     })
     .catch((err) => {
-      console.error("Erro ao atualizar os dados do perfil:", err);
+      const errorMessage = handleError(err);
+      alert(errorMessage);
     });
 }
 
@@ -60,10 +60,8 @@ export function handleCardFormSubmit(params) {
       event.target.reset();
     })
     .catch((err) => {
-      console.error("Erro ao adicionar o cartão:", err);
-      if (err.response) {
-        console.error("Detalhes do erro:", err.response);
-      }
+      const errorMessage = handleError(err);
+      alert(errorMessage);
     });
 }
 
@@ -89,7 +87,8 @@ export function handleAvatarFormSubmit(params) {
       submitButton.classList.remove("disabled");
     })
     .catch((err) => {
-      console.error("Erro ao atualizar o avatar:", err);
+      const errorMessage = handleError(err);
+      alert(errorMessage);
     });
 }
 
@@ -105,7 +104,23 @@ export function handleDeleteCard(event, cardId) {
         cardElement.remove();
       })
       .catch((err) => {
-        console.error("Erro ao excluir o cartão:", err);
+        const errorMessage = handleError(err);
+        alert(errorMessage);
       });
+  }
+}
+
+export function handleError(err) {
+  switch (err.type) {
+    case "network":
+      // Tratamento de erros de rede
+      return "Erro de conexão. Verifique sua internet e tente novamente.";
+    case "syntax":
+      // Tratamento de erros de resposta malformada
+      return "Erro no servidor. Tente novamente mais tarde.";
+    case "unknown":
+    default:
+      // Tratamento de erros genéricos
+      return err.message || "Ocorreu um erro inesperado. Tente novamente.";
   }
 }

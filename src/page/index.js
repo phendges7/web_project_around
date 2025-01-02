@@ -12,6 +12,7 @@ import {
   handleCardFormSubmit,
   handleDeleteCard,
   handleAvatarFormSubmit,
+  handleError,
 } from "../scripts/utils.js";
 
 //CONTAINERS UTEIS
@@ -80,7 +81,8 @@ function loadPageData() {
       pageContainer.style.display = "flex"; //EXIBE PAGINA AFTER FULLY LOADED
     })
     .catch((err) => {
-      console.error("Erro ao buscar informações do usuário e cartões:", err);
+      const errorMessage = handleError(err);
+      alert(errorMessage);
     });
 }
 
